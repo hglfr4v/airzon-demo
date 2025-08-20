@@ -45,6 +45,7 @@ function App() {
         <Route path='create-event' element={<CreateEvent />} />
         <Route path="/join-event/:eventId" element={<JoinEvent />} />
         <Route path="/create-item/" element={<CreateItem />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
 
 
 
