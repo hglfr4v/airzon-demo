@@ -12,6 +12,8 @@ import hamburg from '../assets/figures/hamburg.jpg';
 import munich from '../assets/figures/munich.jpg';
 import Footer from '../components/Footer';
 import { FaSearch } from 'react-icons/fa';
+import heroImage from '../assets/figures/Home1.jpg';
+
 
 const HomePage = () => {
 
@@ -44,7 +46,7 @@ const [searchTerm, setSearchTerm] = useState("");
       <TopNavBar />
 
       {/* HERO */}
- <section className="hero">
+ <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
   <div className="hero-overlay">
     <h1>
       <strong>

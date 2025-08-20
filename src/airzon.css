@@ -498,7 +498,7 @@ width: 100%;
   width: 100%;
   padding-top: 72px ;
   height: 400px;
-  background: url('src/assets/figures/Home1.jpg') no-repeat center center/cover;
+  background: var(--hero-bg) no-repeat center center / cover;
   display: flex;
   flex-direction: column;     /* Stack overlay and search vertically */
   align-items: flex-start;    /* Align content to the left */
