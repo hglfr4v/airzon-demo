@@ -26,7 +26,7 @@ function App() {
   const logout = () => setIsAuthenticated(false);
 
   return (
-    <Router>
+    <Router basename="/airzon-demo">
       <Routes>
         <Route path="/" element={isAuthenticated ? (<HomePage logout={logout} />) : (<Navigate to="/login" />)}/>
         <Route path="/login" element={isAuthenticated ? (<Navigate to="/" />) : (<LoginPage login={login} />)}/>
