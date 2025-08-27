@@ -1407,10 +1407,10 @@ overflow-x: hidden;
   min-height: 320px;
   max-width: 300px;
 }
-.label {
-  font-size: 14px;
+.label-analytics {
+  font-size: 25px;
   margin-bottom: 8px;
-  opacity: 0.85;
+  
 }
 
 .stat-value {

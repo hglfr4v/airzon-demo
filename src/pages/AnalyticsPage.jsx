@@ -234,12 +234,12 @@ const data3 = [
             </div>
           <div className="kpi-col">
     <div className="analytics-dashboard-card kpi-card">
-      <div className="label">My total parts purchased</div>
+      <div className="label-analytics">My total parts purchased</div>
       <div className="stat-value kpi-large">300</div>
       <div className="stat-growth">+ 1% in a month</div>
     </div>
     <div className="analytics-dashboard-card kpi-card">
-      <div className="label">My main supplier</div>
+      <div className="label-analytics">My main supplier</div>
       <div className="stat-value kpi-large">Joahn Meyers</div>
       <div className="stat-link kpi-link">Chat now</div>
     </div>
@@ -247,7 +247,7 @@ const data3 = [
           </div>
            <div className="dashboard-row">
               <div className="analytics-dashboard-card dashboard-card-wide">
-                <h3 className='subtitle'>Price prediction for <span style={{color:"#74b6f9"}}>ATR 72-500 MLG</span> | Part 134-234-585</h3>
+                <h3 className='subtitle'>Parts acquired per geography</h3>
     <div style={{ width: '100%', height: '400px' }}>
     <ResponsiveContainer>
       <BarChart data={data}>

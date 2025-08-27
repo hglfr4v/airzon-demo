@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import '../airzon.css';
 import TopNavBar from '../components/TopNavBar';
 import container from '../assets/figures/container.png'; // Make sure this path is correct
@@ -8,14 +10,17 @@ import newss from '../assets/figures/new.jpeg'; // Make sure this path is correc
 import events from '../assets/figures/event.jpg'; // Make sure this path is correct
 import handshake from '../assets/figures/handshake.jpg'; // Make sure this path is correct
 import erp from '../assets/figures/erp.jpg'; // Make sure this path is correct
-import hamburg from '../assets/figures/hamburg.jpg';
-import munich from '../assets/figures/munich.jpg';
+import dubaiairshow from '../assets/figures/dubaiairshow.jpeg';
+import lebourget from '../assets/figures/lebourget.jpeg';
+import farnboroughairshow from '../assets/figures/farnboroughairshow.jpeg'
 import Footer from '../components/Footer';
 import { FaSearch } from 'react-icons/fa';
 import heroImage from '../assets/figures/Home1.jpg';
+import AlertsSidebar from '../components/Alerts'; // <- import your sidebar
 
 
 const HomePage = () => {
+const navigate = useNavigate();
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -40,6 +45,34 @@ const [searchTerm, setSearchTerm] = useState("");
     e.preventDefault();
     // Dummy: do nothing or console.log('search');
   }
+
+ const [showAlerts, setShowAlerts] = useState(false);
+
+  const handleAlertsClick = () => {
+    setShowAlerts(true);
+  };
+
+  const handleCloseAlerts = () => {
+    setShowAlerts(false);
+  };
+
+  const alertsData = {
+      market: [
+    `A new <a href="#">Part D23189000-22</a> listed below <b>USD 150,000</b> is available <br/>(condition: <b>1,000 Flight Hours</b>)`,
+    `A new <a href="#">Part D23189000-22</a> listed below <b>USD 150,000</b> is available <br/>(condition: <b>3,000 Flight Hours</b>)`,
+    `A new <a href="#">Part 555</a> listed below <b>USD 500</b> is available <br/>(condition: <b>New</b>)`
+  ],
+    inventory: [
+      'Your Part <a href="#">D23189000-22</a> has <b>reached 3,000 flight hours</b>',
+      'You have a new bid for <a href="#">Part D23189000-22</a> from <span style="color:#71b0ff;font-weight:600">Lion Technic</span>',
+      'You have a new counteroffer for <a href="#">Part D23189000-22</a> from <span style="color:#71b0ff;font-weight:600">Lion Technic</span> (<span style="color:#71b0ff">USD 150,000 vs. USD 6,200</span>)'
+    ],
+    news: [
+      'Easyjet signs SAF deal with Enilive in Italy',
+      'Aerlytix & Airfinance Global become partners',
+      'HTF sees aviation market to $85bn in 2032'
+    ]
+  };
 
   return (
     <div className="home-wrapper">
@@ -96,7 +129,8 @@ const [searchTerm, setSearchTerm] = useState("");
               <div className="label-home">New offers from your suppliers</div>
               <div className="stat-value-home">15</div>
             </div>
-            <button>My market alerts <span className="badge">4</span></button>
+            <button onClick={handleAlertsClick}>My market alerts <span className="badge">4</span></button>
+          <AlertsSidebar open={showAlerts} onClose={() => setShowAlerts(false)} alerts={alertsData} />
           </div>
 
          <div className="card">
@@ -105,12 +139,12 @@ const [searchTerm, setSearchTerm] = useState("");
   <div className="event-carousel">
    <div className="event-slides" id="eventSlides">
   <div className="event-slide">
-  <img src={munich} alt="Le Bourget" className="event-image-home" />
+  <img src={lebourget} alt="Le Bourget" className="event-image-home" />
 
   <div className="event-info-home">
     <strong>Le Bourget</strong><br />
     Paris<br />
-    26 June, 2024
+    26 June, 2026
    
   </div>
 <div className="carousel-dot-controls">
@@ -126,11 +160,11 @@ const [searchTerm, setSearchTerm] = useState("");
 </div>
 
   <div className="event-slide">
-    <img src={hamburg} alt="Farnborough" className="event-image-home" />
+    <img src={farnboroughairshow} alt="Farnborough" className="event-image-home" />
     <div className="event-info-home">
       <strong>Farnborough</strong><br />
       UK<br />
-      22 July, 2024
+      22 July, 2027
           
     </div>
 <div className="carousel-dot-controls">
@@ -146,11 +180,11 @@ const [searchTerm, setSearchTerm] = useState("");
   </div>
 
   <div className="event-slide">
-    <img src={events} alt="Dubai Airshow" className="event-image-home" />
+    <img src={dubaiairshow} alt="Dubai Airshow" className="event-image-home" />
     <div className="event-info-home">
       <strong>Dubai Airshow</strong><br />
       UAE<br />
-      12 Nov, 2024
+      12 Nov, 2025
        
     </div>
     <div className="carousel-dot-controls">
@@ -171,7 +205,7 @@ const [searchTerm, setSearchTerm] = useState("");
   </div>
   
  
-  <button>Messages to read <span className="badge">4</span></button>
+  <button onClick={() => navigate('/messages')}>Messages to read <span className="badge">4</span></button>
 </div>
 
           <div className="card">
@@ -193,9 +227,9 @@ const [searchTerm, setSearchTerm] = useState("");
 
       {/* QUICK ACTIONS */}
       <section className="tiles">
-        <div className="tile"><img src={airplane} alt="List a new part" /><span>List a new part</span></div>
-        <div className="tile"><img src={handshake} alt="Offers Received" /><span>Offers Received</span></div>
-        <div className="tile"><img src={container} alt="Follow Deliveries" /><span>Follow Deliveries</span></div>
+        <div className="tile" ><img src={airplane} alt="List a new part" /><button onClick={() => navigate('/create-item')}>List a new part</button></div>
+        <div className="tile"><img src={handshake} alt="Offers Received" /><button onClick={() => navigate('/')}>Offers Received</button></div>
+        <div className="tile"><img src={container} alt="Follow Deliveries" /><button>Follow Deliveries</button></div>
         <div className="info">
           <h3>Explore the marketplace</h3>
           <p>Explore Airzon’s marketplace with more than 10,000 listed items and 2,000 members</p>
