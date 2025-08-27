@@ -105,7 +105,7 @@ const [searchTerm, setSearchTerm] = useState("");
   <div className="event-carousel">
    <div className="event-slides" id="eventSlides">
   <div className="event-slide">
-  <img src={munich} alt="Le Bourget" className="event-image" />
+  <img src={munich} alt="Le Bourget" className="event-image-home" />
 
   <div className="event-info-home">
     <strong>Le Bourget</strong><br />
@@ -126,7 +126,7 @@ const [searchTerm, setSearchTerm] = useState("");
 </div>
 
   <div className="event-slide">
-    <img src={hamburg} alt="Farnborough" className="event-image" />
+    <img src={hamburg} alt="Farnborough" className="event-image-home" />
     <div className="event-info-home">
       <strong>Farnborough</strong><br />
       UK<br />
@@ -146,7 +146,7 @@ const [searchTerm, setSearchTerm] = useState("");
   </div>
 
   <div className="event-slide">
-    <img src={events} alt="Dubai Airshow" className="event-image" />
+    <img src={events} alt="Dubai Airshow" className="event-image-home" />
     <div className="event-info-home">
       <strong>Dubai Airshow</strong><br />
       UAE<br />

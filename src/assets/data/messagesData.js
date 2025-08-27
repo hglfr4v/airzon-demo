@@ -14,7 +14,7 @@ const chats = [
   },
   {
     name: "Paris Event",
-    org: "Hosted by: Aeroservices",
+    org: "Super repair services",
     msg: "Thank you, Jean-Jacques, we are...",
     time: "10:56",
     unread: 1,
@@ -56,8 +56,8 @@ const chats = [
     group: false,
   },
   {
-    name: "Paris Event",
-    org: "Hosted by: Aeroservices",
+    name: "Lisbon Event",
+    org: "AirGlobal",
     msg: "Thank you, Jean-Jacques, we are...",
     time: "10:56",
     unread: 1,
@@ -73,7 +73,7 @@ const chats = [
   },
   {
     name: "Marca Deli",
-    org: "Info services",
+    org: "Lion technical services",
     msg: "Thank you for the feedback!",
     time: "10:36",
     unread: 0,

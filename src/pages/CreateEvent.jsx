@@ -27,6 +27,7 @@ const CreateEvent = () => {
   const [event, setEvent] = useState(defaultEvent);
   const [imagePreview, setImagePreview] = useState(null);
 const [confirmed, setConfirmed] = useState(false);
+const [showBanner, setShowBanner] = useState(false);
   // Handle field change
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -96,11 +97,29 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
     </div>
   </div>
 )}
- {confirmed && (
+{confirmed && (
   <div className="confirm-overlay">
     <div className="confirm-modal">
+  
       <div className="confirm-message">
+ 
         <span role="img" aria-label="success" className="confirm-icon">✅</span>
+                   <button
+        className="close-confirm"
+        onClick={() => setConfirmed(false)}
+        style={{
+          position: "absolute",
+          top: "8px",
+          right: "12px",
+          background: "none",
+          border: "none",
+          fontSize: "20px",
+          cursor: "pointer"
+        }}
+        aria-label="Close confirmation banner"
+      >
+        ×
+      </button>
         Event successfully created!
       </div>
       <button className="btn-download-ics" onClick={handleDownloadICS}>
@@ -110,14 +129,35 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
   </div>
 )}
       <div className="create-event-card">
-        <div className="stepper">
-          <div className={step === 1 ? "step active" : "step"}>
-            Step 1
-          </div>
-          <div className={step === 2 ? "step active" : "step"}>
-            Step 2
-          </div>
-        </div>
+        <button
+  onClick={() => window.history.back()}
+  className="btn-back-arrow"
+  style={{ marginBottom: "1rem", display: "flex", alignItems: "center", color: "#003366", background: "none", border: "none", cursor: "pointer" }}
+>
+  ← Back
+</button>
+       <div className="stepper">
+  {[1, 2].map((s) => {
+    const isActive = step === s;
+    const isClickable = s <= step; // Only allow access to current and previous steps
+
+    return (
+      <div
+        key={s}
+        className={`step ${isActive ? "active" : ""}`}
+        onClick={() => {
+          if (isClickable) setStep(s);
+        }}
+        style={{
+          cursor: isClickable ? "pointer" : "not-allowed",
+          opacity: isClickable ? 1 : 0.5,
+        }}
+      >
+        Step {s}
+      </div>
+    );
+  })}
+</div>
         {step === 1 && (
           <div className="step-content">
             <h2>Fill the main information about your event</h2>

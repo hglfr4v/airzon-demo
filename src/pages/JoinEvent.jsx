@@ -5,6 +5,7 @@ import TopNavBar from "../components/TopNavBar";
 import Footer from "../components/Footer.jsx";
 import { FaHeart, FaRegCommentDots, FaPaperPlane } from "react-icons/fa";
 import "../airzon.css";
+import documentationPDF from '../assets/files/20250818_Hinweise.pdf';
 
 const JoinEvent = () => {
   const { eventId } = useParams();
@@ -13,6 +14,21 @@ const JoinEvent = () => {
 
   // For demonstration, fake a related event (replace with real data if available)
   const relatedEvents = events.filter(ev => ev.id !== eventId).slice(0, 1);
+
+  const handleDownloadDocumentation = () => {
+    fetch(documentationPDF)
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', '20250818_Hinweise.pdf');
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      })
+      .catch(() => alert('Failed to download documentation.'));
+  };
 
   // Join flow state
   const [step, setStep] = useState(1);
@@ -23,6 +39,12 @@ const JoinEvent = () => {
 
   // Handle booking confirm
   const [confirmed, setConfirmed] = useState(false);
+
+   const handleMessageVendor = () => {
+  navigate("/messages", {
+    state: { vendor: event.organization }
+  });
+};
 
   // Download ICS example
   const handleCalendarDownload = () => {
@@ -69,17 +91,66 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
 
       <div className="join-event-root">
         <div className="join-event-card">
+          <button
+  onClick={() => navigate(-1)}
+  style={{
+    background: "none",
+    border: "none",
+    fontSize: "1.5rem",
+    color: "#003366",
+    cursor: "pointer",
+    marginBottom: "1rem",
+    textAlign: "left"
+  }}
+  aria-label="Back to Events page"
+>
+  ← Back
+</button>
           {/* Stepper */}
-          <div className="stepper">
-            <div className={step === 1 ? "step active" : "step"}>Step 1</div>
-            <div className={step === 2 ? "step active" : "step"}>Step 2</div>
-            <div className={step === 3 ? "step active" : "step"}>Step 3</div>
-          </div>
+         <div className="stepper">
+  {[1, 2, 3].map((s) => {
+    const isActive = step === s;
+    const isClickable = s <= step; // Only allow access to current and previous steps
+
+    return (
+      <div
+        key={s}
+        className={`step ${isActive ? "active" : ""}`}
+        onClick={() => {
+          if (isClickable) setStep(s);
+        }}
+        style={{
+          cursor: isClickable ? "pointer" : "not-allowed",
+          opacity: isClickable ? 1 : 0.5,
+        }}
+      >
+        Step {s}
+      </div>
+    );
+  })}
+</div>
 
           {/* Step 1: Select quantity */}
           {step === 1 && (
             <div className="step-content">
               <h2>Select your quantity</h2>
+              <div className="quantity-selector" style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "2rem" }}>
+  <button
+    type="button"
+    className="qty-btn"
+    onClick={() => setQuantity(q => Math.max(1, q - 1))}
+  >
+    −
+  </button>
+  <div className="qty-value" style={{ minWidth: "32px", textAlign: "center", color: "#003366"}}>{quantity}</div>
+  <button
+    type="button"
+    className="qty-btn"
+    onClick={() => setQuantity(q => Math.min((event.spots || 15), q + 1))}
+  >
+    +
+  </button>
+</div>
               <div className="join-event-body">
                 <div className="join-event-side">
                   <div className="event-free">Free</div>
@@ -130,20 +201,27 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       </span>
                     </div>
                   </div>
-                  <button className="btn-message-org">Message the organizer</button>
+                <button
+  className="btn-message-org"
+  onClick={handleMessageVendor}
+>
+  Message the organizer
+</button>
                        
                 </div>
                 
               </div>
-         <div className="related-events">
+         <div className="related-events" style={{ color: "#003366"}}>
                 <div className="related-title">Related events</div>
                 {relatedEvents.map((e, i) => (
                   <div className="related-event" key={e.id}>
                     <img src={e.image} alt={e.title} className="related-image" />
                     <div>
-                      <strong>{e.title}</strong>
-                      <div>{e.date}</div>
-                    </div>
+  <strong>{e.title}</strong>
+  <div>{e.date}</div>
+  <div><strong>Location:</strong> {e.location}</div>
+  <div><strong>Spots:</strong> {e.spots || 15}</div>
+</div>
                   </div>
                 ))}
               </div>
@@ -238,15 +316,17 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                   <button className="btn-message-org">Message the organizer</button>
                 </div>
               </div>
-              <div className="related-events">
+            <div className="related-events" style={{ color: "#003366"}}>
                 <div className="related-title">Related events</div>
                 {relatedEvents.map((e, i) => (
                   <div className="related-event" key={e.id}>
                     <img src={e.image} alt={e.title} className="related-image" />
                     <div>
-                      <strong>{e.title}</strong>
-                      <div>{e.date}</div>
-                    </div>
+  <strong>{e.title}</strong>
+  <div>{e.date}</div>
+  <div><strong>Location:</strong> {e.location}</div>
+  <div><strong>Spots:</strong> {e.spots || 15}</div>
+</div>
                   </div>
                 ))}
               </div>
@@ -263,21 +343,13 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                 <div className="join-event-side">
                   <div className="event-free">Free</div>
                   <div className="event-spots">Selected quantity: {quantity}</div>
-                  <div className="event-progress">
-                    <div className="progress-step progress-complete">Event booked</div>
-                    <div className="progress-line"></div>
-                    <div className="progress-step progress-complete">Event in calendar</div>
-                    <div className="progress-line"></div>
-                    <div className="progress-step">Join event wall</div>
-                    <div className="progress-line"></div>
-                    <div className="progress-step">Event day</div>
-                  </div>
+              
                   <div className="event-actions">
                     <button className="btn-alerts">Join event wall</button>
                     <button className="btn-cart" onClick={handleCalendarDownload}>
                       Add to your calendar
                     </button>
-                    <button className="btn-join">Download invoice</button>
+                    <button className="btn-join" onClick={handleDownloadDocumentation}>Download invoice</button>
                   </div>
                 </div>
                 <div className="join-event-main">
@@ -309,15 +381,17 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                   <button className="btn-message-org">Message the organizer</button>
                 </div>
               </div>
-              <div className="related-events">
+            <div className="related-events" style={{ color: "#003366"}}>
                 <div className="related-title">Related events</div>
                 {relatedEvents.map((e, i) => (
                   <div className="related-event" key={e.id}>
                     <img src={e.image} alt={e.title} className="related-image" />
                     <div>
-                      <strong>{e.title}</strong>
-                      <div>{e.date}</div>
-                    </div>
+  <strong>{e.title}</strong>
+  <div>{e.date}</div>
+  <div><strong>Location:</strong> {e.location}</div>
+  <div><strong>Spots:</strong> {e.spots || 15}</div>
+</div>
                   </div>
                 ))}
               </div>

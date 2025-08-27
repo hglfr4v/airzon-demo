@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TopNavBar from '../components/TopNavBar';
 import Footer from '../components/Footer';
 import '../airzon.css';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FiBox, FiDollarSign, FiGlobe, FiTool, FiUploadCloud } from 'react-icons/fi';
 
@@ -37,7 +38,7 @@ const inventory = [
 
 const MyInventory = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  
+  const navigate = useNavigate();
   function handleDummySearch(e) {
     e.preventDefault();
     // Search logic here
@@ -99,7 +100,7 @@ const MyInventory = () => {
 
             <div className="inventory-title-section" style={{marginTop:32}}>Upload new parts</div>
             <div className="inventory-upload-row">
-              <button className="inventory-upload-btn yellow">
+              <button className="inventory-upload-btn yellow" onClick={() => navigate('/create-item')}>
                 <FiUploadCloud style={{marginRight:7, fontSize:25}} /><br/>
                 Individual part
               </button>

@@ -8,11 +8,12 @@ import '../airzon.css';
 
 const MessagesPage = () => {
  
-
+const location = useLocation();
   const vendor = location.state?.vendor;
-const initialIndex = vendor
+  const initialIndex = vendor
   ? chats.findIndex(c => c.name === vendor || c.org === vendor)
   : 0;
+
 
 const [activeIndex, setActiveIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
 

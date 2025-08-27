@@ -88,11 +88,36 @@ const [showBanner, setShowBanner] = useState(false);
   </div>
 )}
       <div className="create-item-card">
-        <div className="stepper">
-          <div className={step === 1 ? "step active" : "step"}>Step 1</div>
-          <div className={step === 2 ? "step active" : "step"}>Step 2</div>
-          <div className={step === 3 ? "step active" : "step"}>Step 3</div>
-        </div>
+ <button
+  onClick={() => window.history.back()}
+  className="btn-back-arrow"
+  style={{ marginBottom: "1rem", display: "flex", alignItems: "center", color: "#003366", background: "none", border: "none", cursor: "pointer" }}
+>
+  ← Back
+</button>
+
+<div className="stepper">
+  {[1, 2, 3].map((s) => {
+    const isActive = step === s;
+    const isClickable = s <= step; // Only allow clicking current and previous steps
+
+    return (
+      <div
+        key={s}
+        className={`step ${isActive ? "active" : ""}`}
+        onClick={() => {
+          if (isClickable) setStep(s);
+        }}
+        style={{
+          cursor: isClickable ? "pointer" : "not-allowed",
+          opacity: isClickable ? 1 : 0.5,
+        }}
+      >
+        Step {s}
+      </div>
+    );
+  })}
+</div>
 
         {/* --- Step 1: Main Info --- */}
         {step === 1 && (
