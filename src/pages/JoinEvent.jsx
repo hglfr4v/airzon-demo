@@ -90,6 +90,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
     <>
 
       <div className="join-event-root">
+        <TopNavBar />
         <div className="join-event-card">
           <button
   onClick={() => navigate(-1)}
@@ -133,7 +134,9 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
           {/* Step 1: Select quantity */}
           {step === 1 && (
             <div className="step-content">
-              <h2>Select your quantity</h2>
+              <div className="join-event-body">
+                <div className="join-event-side">
+                   <h2>Select your quantity</h2>
               <div className="quantity-selector" style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "2rem" }}>
   <button
     type="button"
@@ -151,19 +154,11 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
     +
   </button>
 </div>
-              <div className="join-event-body">
-                <div className="join-event-side">
                   <div className="event-free">Free</div>
                   <div className="event-spots">
                     {event.spots || "15"} spots available
                   </div>
-                  <div className="event-img-wrap">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="event-image"
-                    />
-                  </div>
+                  
                   <div className="event-actions">
                     <button className="btn-alerts">Create Alerts</button>
                     <button className="btn-cart">Save in cart</button>
@@ -176,6 +171,13 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                   </div>
                 </div>
                 <div className="join-event-main">
+                  <div className="event-img-wrap">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="event-image-details"
+                    />
+                  </div>
                   <div className="event-details">
                     <strong>{event.title}</strong>
                     <div>{event.organization}</div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { FaCheckCircle } from "react-icons/fa";
+import TopNavBar from "../components/TopNavBar";
+import Footer from "../components/Footer";
 
 const defaultEvent = {
   name: "",
@@ -85,79 +87,80 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
   const prevStep = () => setStep((s) => Math.max(1, s - 1));
 
   return (
-    <div className="create-event-root">
-        {showBanner && (
-  <div className="success-overlay">
-    <div className="success-modal">
-      <h2>Item successfully created!</h2>
-      <p>Your item was published and is now live on Airzon.</p>
-      <button className="btn-next" onClick={() => setShowBanner(false)}>
-        Close
-      </button>
-    </div>
-  </div>
-)}
-{confirmed && (
-  <div className="confirm-overlay">
-    <div className="confirm-modal">
-  
-      <div className="confirm-message">
- 
-        <span role="img" aria-label="success" className="confirm-icon">✅</span>
-                   <button
-        className="close-confirm"
-        onClick={() => setConfirmed(false)}
-        style={{
-          position: "absolute",
-          top: "8px",
-          right: "12px",
-          background: "none",
-          border: "none",
-          fontSize: "20px",
-          cursor: "pointer"
-        }}
-        aria-label="Close confirmation banner"
-      >
-        ×
-      </button>
-        Event successfully created!
-      </div>
-      <button className="btn-download-ics" onClick={handleDownloadICS}>
-        Download calendar (.ics)
-      </button>
-    </div>
-  </div>
-)}
+    <><div className="create-event-root">
+      <TopNavBar />
+      {showBanner && (
+        <div className="success-overlay">
+          <div className="success-modal">
+            <h2>Item successfully created!</h2>
+            <p>Your item was published and is now live on Airzon.</p>
+            <button className="btn-next" onClick={() => setShowBanner(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+      {confirmed && (
+        <div className="confirm-overlay">
+          <div className="confirm-modal">
+
+            <div className="confirm-message">
+
+              <span role="img" aria-label="success" className="confirm-icon">✅</span>
+              <button
+                className="close-confirm"
+                onClick={() => setConfirmed(false)}
+                style={{
+                  position: "absolute",
+                  top: "8px",
+                  right: "12px",
+                  background: "none",
+                  border: "none",
+                  fontSize: "20px",
+                  cursor: "pointer"
+                }}
+                aria-label="Close confirmation banner"
+              >
+                ×
+              </button>
+              Event successfully created!
+            </div>
+            <button className="btn-download-ics" onClick={handleDownloadICS}>
+              Download calendar (.ics)
+            </button>
+          </div>
+        </div>
+      )}
       <div className="create-event-card">
         <button
-  onClick={() => window.history.back()}
-  className="btn-back-arrow"
-  style={{ marginBottom: "1rem", display: "flex", alignItems: "center", color: "#003366", background: "none", border: "none", cursor: "pointer" }}
->
-  ← Back
-</button>
-       <div className="stepper">
-  {[1, 2].map((s) => {
-    const isActive = step === s;
-    const isClickable = s <= step; // Only allow access to current and previous steps
+          onClick={() => window.history.back()}
+          className="btn-back-arrow"
+          style={{ marginBottom: "1rem", display: "flex", alignItems: "center", color: "#003366", background: "none", border: "none", cursor: "pointer" }}
+        >
+          ← Back
+        </button>
+        <div className="stepper">
+          {[1, 2].map((s) => {
+            const isActive = step === s;
+            const isClickable = s <= step; // Only allow access to current and previous steps
 
-    return (
-      <div
-        key={s}
-        className={`step ${isActive ? "active" : ""}`}
-        onClick={() => {
-          if (isClickable) setStep(s);
-        }}
-        style={{
-          cursor: isClickable ? "pointer" : "not-allowed",
-          opacity: isClickable ? 1 : 0.5,
-        }}
-      >
-        Step {s}
-      </div>
-    );
-  })}
-</div>
+            return (
+              <div
+                key={s}
+                className={`step ${isActive ? "active" : ""}`}
+                onClick={() => {
+                  if (isClickable) setStep(s);
+                } }
+                style={{
+                  cursor: isClickable ? "pointer" : "not-allowed",
+                  opacity: isClickable ? 1 : 0.5,
+                }}
+              >
+                Step {s}
+              </div>
+            );
+          })}
+        </div>
         {step === 1 && (
           <div className="step-content">
             <h2>Fill the main information about your event</h2>
@@ -169,8 +172,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                     name="name"
                     value={event.name}
                     onChange={handleChange}
-                    placeholder="Type..."
-                  />
+                    placeholder="Type..." />
                 </label>
                 <div className="two-cols">
                   <label>
@@ -179,8 +181,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="date"
                       name="date"
                       value={event.date}
-                      onChange={handleChange}
-                    />
+                      onChange={handleChange} />
                   </label>
                   <label>
                     Time
@@ -188,8 +189,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="time"
                       name="time"
                       value={event.time}
-                      onChange={handleChange}
-                    />
+                      onChange={handleChange} />
                   </label>
                 </div>
                 <div className="two-cols">
@@ -199,8 +199,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="date"
                       name="untilDate"
                       value={event.untilDate}
-                      onChange={handleChange}
-                    />
+                      onChange={handleChange} />
                   </label>
                   <label>
                     <span style={{ opacity: 0 }}>.</span>
@@ -208,8 +207,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="time"
                       name="untilTime"
                       value={event.untilTime}
-                      onChange={handleChange}
-                    />
+                      onChange={handleChange} />
                   </label>
                 </div>
                 <div className="two-cols">
@@ -219,8 +217,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       name="location"
                       value={event.location}
                       onChange={handleChange}
-                      placeholder="City"
-                    />
+                      placeholder="City" />
                   </label>
                   <label>
                     Engine type
@@ -228,8 +225,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       name="engine"
                       value={event.engine}
                       onChange={handleChange}
-                      placeholder="Type..."
-                    />
+                      placeholder="Type..." />
                   </label>
                 </div>
                 <label>
@@ -238,8 +234,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                     name="description"
                     value={event.description}
                     onChange={handleChange}
-                    placeholder="Type..."
-                  />
+                    placeholder="Type..." />
                 </label>
               </div>
               <div className="upload-box">
@@ -248,16 +243,14 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                     type="file"
                     accept="image/*,video/*"
                     style={{ display: "none" }}
-                    onChange={handleImageUpload}
-                  />
+                    onChange={handleImageUpload} />
                   <FiUploadCloud className="upload-icon" />
                   <div>Upload pictures & videos</div>
                   {imagePreview && (
                     <img
                       src={imagePreview}
                       alt="Preview"
-                      className="image-preview"
-                    />
+                      className="image-preview" />
                   )}
                 </label>
               </div>
@@ -281,8 +274,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                     name="spots"
                     value={event.spots}
                     onChange={handleChange}
-                    placeholder="Type..."
-                  />
+                    placeholder="Type..." />
                 </label>
                 <div className="two-cols">
                   <label>
@@ -291,8 +283,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       name="currency"
                       value={event.currency}
                       onChange={handleChange}
-                      placeholder="USD"
-                    />
+                      placeholder="USD" />
                   </label>
                   <label>
                     Price
@@ -300,8 +291,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       name="price"
                       value={event.price}
                       onChange={handleChange}
-                      placeholder="Free"
-                    />
+                      placeholder="Free" />
                   </label>
                 </div>
                 <div className="switch-row">
@@ -310,8 +300,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="checkbox"
                       name="eventWall"
                       checked={event.eventWall}
-                      onChange={handleChange}
-                    />{" "}
+                      onChange={handleChange} />{" "}
                     Activate Event Wall
                   </label>
                 </div>
@@ -321,14 +310,12 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                     name="iban"
                     value={event.iban}
                     onChange={handleChange}
-                    placeholder="IBAN"
-                  />
+                    placeholder="IBAN" />
                   <input
                     name="bic"
                     value={event.bic}
                     onChange={handleChange}
-                    placeholder="BIC"
-                  />
+                    placeholder="BIC" />
                 </label>
                 <div className="switch-row">
                   <label>
@@ -336,8 +323,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="checkbox"
                       name="useProfile"
                       checked={event.useProfile}
-                      onChange={handleChange}
-                    />{" "}
+                      onChange={handleChange} />{" "}
                     Use my profile details
                   </label>
                   <label>
@@ -345,8 +331,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                       type="checkbox"
                       name="payInAirzon"
                       checked={event.payInAirzon}
-                      onChange={handleChange}
-                    />{" "}
+                      onChange={handleChange} />{" "}
                     Payment in Airzon
                   </label>
                 </div>
@@ -356,8 +341,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="image-preview"
-                  />
+                    className="image-preview" />
                 ) : (
                   <div className="img-placeholder">No image uploaded</div>
                 )}
@@ -365,9 +349,7 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
                   <strong>{event.name || "Event name"}</strong>
                   <div>
                     {event.date
-                      ? `${new Date(event.date).toLocaleDateString()} ${
-                          event.time || ""
-                        }`
+                      ? `${new Date(event.date).toLocaleDateString()} ${event.time || ""}`
                       : ""}
                   </div>
                   <div>
@@ -381,14 +363,15 @@ END:VCALENDAR`.replace(/^\s+/gm, "");
               <button className="btn-draft" onClick={prevStep}>
                 Back
               </button>
-            <button className="btn-validate" onClick={handleValidate}>
-  <FaCheckCircle style={{ marginRight: 6 }} /> Validate
-</button>
+              <button className="btn-validate" onClick={handleValidate}>
+                <FaCheckCircle style={{ marginRight: 6 }} /> Validate
+              </button>
             </div>
           </div>
         )}
       </div>
-    </div>
+
+    </div><Footer /></>
   );
 };
 
