@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import '../airzon.css';
+import TopNavBar from "../components/TopNavBar";
+import Footer from "../components/Footer";
 
   const defaultItem = {
   name: "",
@@ -75,49 +77,50 @@ const CreateItem = () => {
   const prevStep = () => setStep((s) => Math.max(1, s - 1));
 const [showBanner, setShowBanner] = useState(false);
   return (
-    <div className="create-item-root">
-         {showBanner && (
-  <div className="success-overlay">
-    <div className="success-modal">
-      <h2>Item successfully created!</h2>
-      <p>Your item was published and is now live on Airzon.</p>
-      <button className="btn-next" onClick={() => setShowBanner(false)}>
-        Close
-      </button>
-    </div>
-  </div>
-)}
+    <><div className="create-item-root">
+      <TopNavBar />
+      {showBanner && (
+        <div className="success-overlay">
+          <div className="success-modal">
+            <h2>Item successfully created!</h2>
+            <p>Your item was published and is now live on Airzon.</p>
+            <button className="btn-next" onClick={() => setShowBanner(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <div className="create-item-card">
- <button
-  onClick={() => window.history.back()}
-  className="btn-back-arrow"
-  style={{ marginBottom: "1rem", display: "flex", alignItems: "center", color: "#003366", background: "none", border: "none", cursor: "pointer" }}
->
-  ← Back
-</button>
+        <button
+          onClick={() => window.history.back()}
+          className="btn-back-arrow"
+          style={{ marginBottom: "1rem", display: "flex", alignItems: "center", color: "#003366", background: "none", border: "none", cursor: "pointer" }}
+        >
+          ← Back
+        </button>
 
-<div className="stepper">
-  {[1, 2, 3].map((s) => {
-    const isActive = step === s;
-    const isClickable = s <= step; // Only allow clicking current and previous steps
+        <div className="stepper">
+          {[1, 2, 3].map((s) => {
+            const isActive = step === s;
+            const isClickable = s <= step; // Only allow clicking current and previous steps
 
-    return (
-      <div
-        key={s}
-        className={`step ${isActive ? "active" : ""}`}
-        onClick={() => {
-          if (isClickable) setStep(s);
-        }}
-        style={{
-          cursor: isClickable ? "pointer" : "not-allowed",
-          opacity: isClickable ? 1 : 0.5,
-        }}
-      >
-        Step {s}
-      </div>
-    );
-  })}
-</div>
+            return (
+              <div
+                key={s}
+                className={`step ${isActive ? "active" : ""}`}
+                onClick={() => {
+                  if (isClickable) setStep(s);
+                } }
+                style={{
+                  cursor: isClickable ? "pointer" : "not-allowed",
+                  opacity: isClickable ? 1 : 0.5,
+                }}
+              >
+                Step {s}
+              </div>
+            );
+          })}
+        </div>
 
         {/* --- Step 1: Main Info --- */}
         {step === 1 && (
@@ -286,8 +289,7 @@ const [showBanner, setShowBanner] = useState(false);
                         name="paymentType"
                         checked={item.paymentType === opt}
                         value={opt}
-                        onChange={handleChange}
-                      />
+                        onChange={handleChange} />
                       <span>{opt}</span>
                     </label>
                   ))}
@@ -306,16 +308,15 @@ const [showBanner, setShowBanner] = useState(false);
                       type="checkbox"
                       name="useProfile"
                       checked={item.useProfile}
-                      onChange={handleChange}
-                    />{" "}
+                      onChange={handleChange} />{" "}
                     Use my profile details
                   </label>
                 </div>
                 <div className="create-item-actions">
                   <button className="btn-draft" onClick={prevStep}>Back</button>
-                <button className="btn-next btn-validate" type="button" onClick={() => setShowBanner(true)}>
-                Validate
-              </button>
+                  <button className="btn-next btn-validate" type="button" onClick={() => setShowBanner(true)}>
+                    Validate
+                  </button>
                 </div>
               </div>
               <div className="preview-box">
@@ -341,7 +342,7 @@ const [showBanner, setShowBanner] = useState(false);
           </div>
         )}
       </div>
-    </div>
+    </div><Footer /></>
   );
 };
 

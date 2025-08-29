@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import WorldMap from "../components/WorldMap";
 import imageDetail from "../assets/figures/ATR+MLG.jpeg";
 import documentationPDF from '../assets/files/20250818_Hinweise.pdf';
+import TopNavBar from "../components/TopNavBar";
 
 
 // Example mock data
@@ -123,267 +124,262 @@ const handleDownloadDocumentation = () => {
 
   // Step bar UI
   const StepBar = () => (
+    <><TopNavBar />
     <div className="item-detail-container" style={{
       maxWidth: 1280, margin: "24px auto 0", display: "flex", gap: 40, padding: "0 24px"
     }}>
+
       {showAlertModal && (
-  <div className="success-overlay">
-    <div className="success-modal" style={{ maxWidth: 720, width: "97vw" }}>
-      {alertStep === 1 ? (
-        <>
-          <h2 style={{ fontWeight: 700, fontSize: "1.29rem", marginBottom: 18 }}>Define the alert</h2>
-          <div style={{ textAlign: "left", marginBottom: 18 }}>
-            <label style={{ color: "#003366", display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
-              <input type="checkbox" checked={notifyUpload} onChange={() => setNotifyUpload(!notifyUpload)} style={{ accentColor: "#4678ea", width: 18, height: 18 }} />
-              Notify me for the same part number new uploads
-            </label><br/>
-            <div style={{ gap: 12, marginBottom: 18 }}>
-              <label style={{ flex: 1 }}>
-                <div style={{ color:"#003366",fontSize: 14, marginBottom: 10 }}>Set a maximum price in USD</div>
-                <input type="number" value={maxPrice} onChange={e => setMaxPrice(e.target.value)} className="form-input" placeholder="USD 1234..." style={{ width: "100%", marginBottom: 10 }} />
-              </label>
-              <br/>
-              <label style={{ flex: 1 }}>
-                <div style={{ color:"#003366",fontSize: 14, marginBottom: 10 }}>Select condition</div>
-                <select value={condition} onChange={e => setCondition(e.target.value)} className="form-input" style={{ width: "100%", marginBottom: 10 }}>
-                  <option value="">Select</option>
-                  <option value="new">New</option>
-                  <option value="used">Used</option>
-                  <option value="overhauled">Overhauled</option>
-                  <option value="custom">Other (specify)</option>
-                </select>
-                {condition === "custom" && (
+        <div className="success-overlay">
+          <div className="success-modal" style={{ maxWidth: 720, width: "97vw" }}>
+            {alertStep === 1 ? (
+              <>
+                <h2 style={{ fontWeight: 700, fontSize: "1.29rem", marginBottom: 18 }}>Define the alert</h2>
+                <div style={{ textAlign: "left", marginBottom: 18 }}>
+                  <label style={{ color: "#003366", display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                    <input type="checkbox" checked={notifyUpload} onChange={() => setNotifyUpload(!notifyUpload)} style={{ accentColor: "#4678ea", width: 18, height: 18 }} />
+                    Notify me for the same part number new uploads
+                  </label><br />
+                  <div style={{ gap: 12, marginBottom: 18 }}>
+                    <label style={{ flex: 1 }}>
+                      <div style={{ color: "#003366", fontSize: 14, marginBottom: 10 }}>Set a maximum price in USD</div>
+                      <input type="number" value={maxPrice} onChange={e => setMaxPrice(e.target.value)} className="form-input" placeholder="USD 1234..." style={{ width: "100%", marginBottom: 10 }} />
+                    </label>
+                    <br />
+                    <label style={{ flex: 1 }}>
+                      <div style={{ color: "#003366", fontSize: 14, marginBottom: 10 }}>Select condition</div>
+                      <select value={condition} onChange={e => setCondition(e.target.value)} className="form-input" style={{ width: "100%", marginBottom: 10 }}>
+                        <option value="">Select</option>
+                        <option value="new">New</option>
+                        <option value="used">Used</option>
+                        <option value="overhauled">Overhauled</option>
+                        <option value="custom">Other (specify)</option>
+                      </select>
+                      {condition === "custom" && (
+                        <input
+                          value={customCondition}
+                          onChange={e => setCustomCondition(e.target.value)}
+                          className="form-input"
+                          placeholder="Type..." />
+                      )}
+                    </label><br />
+                  </div><br />
+                  <label style={{ color: "#003366", display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                    <input type="checkbox" checked={notifyMarket} onChange={() => setNotifyMarket(!notifyMarket)} style={{ accentColor: "#4678ea", width: 18, height: 18 }} />
+                    Provide me daily updates on average market price for this part number
+                  </label><br />
+                  <label style={{ color: "#003366", display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                    <input type="checkbox" checked={notifyOther} onChange={() => setNotifyOther(!notifyOther)} style={{ accentColor: "#4678ea", width: 18, height: 18 }} />
+                    Notify me for other items sold by the supplier
+                  </label><br />
+                </div>
+                <button
+                  className="btn-next"
+                  style={{ width: "100%" }}
+                  onClick={() => setAlertStep(2)}
+                >
+                  Confirm & Go back
+                </button>
+              </>
+            ) : (
+              <>
+                <h2>Alerts Activated!</h2>
+                <p>You will be notified about any updates or price changes for this item.</p>
+                <button className="btn-next" style={{ width: "100%" }} onClick={() => setShowAlertModal(false)}>
+                  Close
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+      {showCounterModal && (
+        <div className="success-overlay">
+          <div className="success-modal" style={{ maxWidth: 720, width: "97vw", padding: 0, overflow: "hidden" }}>
+            {/* Step 1: Counteroffer Form */}
+            {counterStep === 1 && (
+              <div style={{ padding: "40px 40px 28px" }}>
+                <button
+                  className="btn-next"
+                  style={{
+                    background: "#4678ea",
+                    color: "#fff",
+                    padding: "7px 18px",
+                    borderRadius: 20,
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    border: "none"
+                  }}
+                  onClick={() => setCounterStep(2)}
+                >
+                  Propose a part exchange
+                </button>
+                <h2 style={{ fontWeight: 700, fontSize: "1.25rem", marginBottom: 18 }}>Define your counteroffer</h2>
+                <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", marginBottom: 8 }}>
+
+                </div>
+                <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
+                  <label style={{ flex: 1 }}>
+                    <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Currency</div>
+                    <input value={counterCurrency} onChange={e => setCounterCurrency(e.target.value)} className="form-input" placeholder="USD" />
+                  </label>
+                  <label style={{ flex: 1 }}>
+                    <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Set your price</div>
+                    <input type="number" value={counterPrice} onChange={e => setCounterPrice(e.target.value)} className="form-input" placeholder="1234..." />
+                  </label>
+                </div>
+                <label style={{ display: "block", marginBottom: 16 }}>
+                  <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Quantity you wish to purchase</div>
+                  <input type="number" value={counterQuantity} onChange={e => setCounterQuantity(e.target.value)} className="form-input" placeholder="1234..." style={{ width: "100%" }} />
+                </label>
+                <label style={{ display: "block", marginBottom: 22 }}>
+                  <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Message to the Supplier</div>
+                  <textarea value={counterMsg} onChange={e => setCounterMsg(e.target.value)} className="form-input" placeholder="Type..." style={{ width: "100%", minHeight: 60 }} />
+                </label>
+                <button
+                  className="btn-next"
+                  style={{ width: "100%", marginTop: 10 }}
+                  onClick={() => setCounterStep(3)}
+                >
+                  Confirm &amp; Send to Supplier
+                </button>
+              </div>
+            )}
+            {/* Step 2: Propose a part exchange */}
+            {counterStep === 2 && (
+              <div style={{ padding: "40px 40px 28px" }}>
+                <button
+                  className="btn-next"
+                  style={{
+                    background: "#4678ea",
+                    color: "#fff",
+                    padding: "7px 18px",
+                    borderRadius: 20,
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    border: "none"
+                  }}
+                  onClick={() => setCounterStep(1)} // Go back to price proposal
+                >
+                  Propose price
+                </button>
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 0 }}>
+
+                </div>
+                <h2 style={{ fontWeight: 700, fontSize: "1.22rem", marginBottom: 18, marginTop: -10 }}>Define your counteroffer</h2>
+                <div style={{
+                  background: "#f6f8fc",
+                  borderRadius: 18,
+                  padding: 22,
+                  marginBottom: 18,
+                  display: "flex",
+                  gap: 28,
+                  alignItems: "center"
+                }}>
+                  {/* LEFT: select part */}
+                  <div style={{
+                    flex: "0 0 160px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center"
+                  }}>
+                    <div style={{
+                      width: 90, height: 90, background: "#e4ecfb",
+                      borderRadius: "50%", display: "flex",
+                      alignItems: "center", justifyContent: "center", marginBottom: 10
+                    }}>
+                      <svg width="56" height="56" fill="none" viewBox="0 0 24 24">
+                        <path d="M12 16V4M12 4L7 9M12 4l5 5" stroke="#4678ea" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="3" y="16" width="18" height="4" rx="2" fill="#4678ea" fillOpacity="0.15" />
+                      </svg>
+                    </div>
+                    <div style={{ color: "#36518a", fontWeight: 600, fontSize: 13, textAlign: "center" }}>
+                      Select part from your inventory
+                    </div>
+                  </div>
+                  {/* RIGHT: value fields */}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 3, color: '#003366' }}>Value of the part exchanged</div>
+                    <div style={{ display: "flex", gap: 10, marginBottom: 8 }}>
+                      <input
+                        className="form-input"
+                        placeholder="Currency"
+                        value={exchangePartCurrency || "USD"}
+                        onChange={e => setExchangePartCurrency(e.target.value)}
+                        style={{ width: 90 }} />
+                      <input
+                        className="form-input"
+                        placeholder="Value exchange"
+                        value={exchangePartValue}
+                        onChange={e => setExchangePartValue(e.target.value)}
+                        style={{ flex: 1 }}
+                        type="number" />
+                    </div>
+                    <div style={{ fontWeight: 600, fontSize: 15, margin: "14px 0 3px", color: '#003366' }}>Additional funds on top (optional)</div>
+                    <div style={{ display: "flex", gap: 10 }}>
+                      <input
+                        className="form-input"
+                        placeholder="Currency"
+                        value={exchangeAddCurrency || "USD"}
+                        onChange={e => setExchangeAddCurrency(e.target.value)}
+                        style={{ width: 90 }} />
+                      <input
+                        className="form-input"
+                        placeholder="Value exchange"
+                        value={exchangeAddValue}
+                        onChange={e => setExchangeAddValue(e.target.value)}
+                        style={{ flex: 1 }}
+                        type="number" />
+                    </div>
+                  </div>
+                </div>
+                <label style={{ display: "block", marginBottom: 14 }}>
+                  <div style={{ fontSize: 14, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Quantity you wish to purchase</div>
                   <input
-                    value={customCondition}
-                    onChange={e => setCustomCondition(e.target.value)}
+                    type="number"
+                    value={counterQuantity}
+                    onChange={e => setCounterQuantity(e.target.value)}
+                    className="form-input"
+                    placeholder="1234..."
+                    style={{ width: "100%" }} />
+                </label>
+                <label style={{ display: "block", marginBottom: 22 }}>
+                  <div style={{ fontSize: 14, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Message to the Supplier</div>
+                  <textarea
+                    value={counterMsg}
+                    onChange={e => setCounterMsg(e.target.value)}
                     className="form-input"
                     placeholder="Type..."
-                  />
-                )}
-              </label><br/>
-            </div><br/>
-            <label style={{ color:"#003366", display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-              <input type="checkbox" checked={notifyMarket} onChange={() => setNotifyMarket(!notifyMarket)} style={{ accentColor: "#4678ea", width: 18, height: 18 }} />
-              Provide me daily updates on average market price for this part number
-            </label><br/>
-            <label style={{ color:"#003366", display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-              <input type="checkbox" checked={notifyOther} onChange={() => setNotifyOther(!notifyOther)} style={{ accentColor: "#4678ea", width: 18, height: 18 }} />
-              Notify me for other items sold by the supplier
-            </label><br/>
+                    style={{ width: "100%", minHeight: 60 }} />
+                </label>
+                <button
+                  className="btn-next"
+                  style={{ width: "100%" }}
+                  onClick={() => setCounterStep(3)}
+                >
+                  Confirm &amp; Send to Supplier
+                </button>
+              </div>
+            )}
+            {/* Step 3: Success confirmation */}
+            {counterStep === 3 && (
+              <div style={{ padding: "58px 40px 44px" }}>
+                <h2 style={{ color: "#21b841", marginBottom: 12, fontWeight: 700 }}>Counteroffer Sent!</h2>
+                <p style={{ fontSize: "1.09rem", color: "#253060", marginBottom: 24 }}>
+                  Your counteroffer has been sent to the supplier. You will be notified upon their response.
+                </p>
+                <button
+                  className="btn-next"
+                  style={{ width: "100%" }}
+                  onClick={() => setShowCounterModal(false)}
+                >
+                  Close
+                </button>
+              </div>
+            )}
           </div>
-          <button
-            className="btn-next"
-            style={{ width: "100%" }}
-            onClick={() => setAlertStep(2)}
-          >
-            Confirm & Go back
-          </button>
-        </>
-      ) : (
-        <>
-          <h2>Alerts Activated!</h2>
-          <p>You will be notified about any updates or price changes for this item.</p>
-          <button className="btn-next" style={{ width: "100%" }} onClick={() => setShowAlertModal(false)}>
-            Close
-          </button>
-        </>
-      )}
-    </div>
-  </div>
-)}
-{showCounterModal && (
-  <div className="success-overlay">
-    <div className="success-modal" style={{ maxWidth: 720, width: "97vw", padding: 0, overflow: "hidden" }}>
-      {/* Step 1: Counteroffer Form */}
-      {counterStep === 1 && (
-        <div style={{ padding: "40px 40px 28px" }}>
-           <button
-              className="btn-next"
-              style={{
-                background: "#4678ea",
-                color: "#fff",
-                padding: "7px 18px",
-                borderRadius: 20,
-                fontWeight: 600,
-                fontSize: "1rem",
-                border: "none"
-              }}
-              onClick={() => setCounterStep(2)}
-            >
-              Propose a part exchange
-            </button>
-          <h2 style={{ fontWeight: 700, fontSize: "1.25rem", marginBottom: 18 }}>Define your counteroffer</h2>
-          <div style={{ display: "flex", gap: 10, justifyContent: "flex-end", marginBottom: 8 }}>
-           
-          </div>
-          <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
-            <label style={{ flex: 1 }}>
-              <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600}}>Currency</div>
-              <input value={counterCurrency} onChange={e => setCounterCurrency(e.target.value)} className="form-input" placeholder="USD" />
-            </label>
-            <label style={{ flex: 1 }}>
-              <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600}}>Set your price</div>
-              <input type="number" value={counterPrice} onChange={e => setCounterPrice(e.target.value)} className="form-input" placeholder="1234..." />
-            </label>
-          </div>
-          <label style={{ display: "block", marginBottom: 16 }}>
-            <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Quantity you wish to purchase</div>
-            <input type="number" value={counterQuantity} onChange={e => setCounterQuantity(e.target.value)} className="form-input" placeholder="1234..." style={{ width: "100%" }} />
-          </label>
-          <label style={{ display: "block", marginBottom: 22 }}>
-            <div style={{ fontSize: 16, marginBottom: 3, color: '#003366', fontWeight: 600 }}>Message to the Supplier</div>
-            <textarea value={counterMsg} onChange={e => setCounterMsg(e.target.value)} className="form-input" placeholder="Type..." style={{ width: "100%", minHeight: 60 }} />
-          </label>
-          <button
-            className="btn-next"
-            style={{ width: "100%", marginTop: 10 }}
-            onClick={() => setCounterStep(3)}
-          >
-            Confirm &amp; Send to Supplier
-          </button>
         </div>
       )}
-      {/* Step 2: Propose a part exchange */}
-     {counterStep === 2 && (
-  <div style={{ padding: "40px 40px 28px" }}>
-     <button
-        className="btn-next"
-        style={{
-          background: "#4678ea",
-          color: "#fff",
-          padding: "7px 18px",
-          borderRadius: 20,
-          fontWeight: 600,
-          fontSize: "1rem",
-          border: "none"
-        }}
-        onClick={() => setCounterStep(1)} // Go back to price proposal
-      >
-        Propose price
-      </button>
-    <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 0 }}>
-     
-    </div>
-    <h2 style={{ fontWeight: 700, fontSize: "1.22rem", marginBottom: 18, marginTop: -10 }}>Define your counteroffer</h2>
-    <div style={{
-      background: "#f6f8fc",
-      borderRadius: 18,
-      padding: 22,
-      marginBottom: 18,
-      display: "flex",
-      gap: 28,
-      alignItems: "center"
-    }}>
-      {/* LEFT: select part */}
-      <div style={{
-        flex: "0 0 160px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-      }}>
-        <div style={{
-          width: 90, height: 90, background: "#e4ecfb",
-          borderRadius: "50%", display: "flex",
-          alignItems: "center", justifyContent: "center", marginBottom: 10
-        }}>
-          <svg width="56" height="56" fill="none" viewBox="0 0 24 24">
-            <path d="M12 16V4M12 4L7 9M12 4l5 5" stroke="#4678ea" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round"/>
-            <rect x="3" y="16" width="18" height="4" rx="2" fill="#4678ea" fillOpacity="0.15"/>
-          </svg>
-        </div>
-        <div style={{ color: "#36518a", fontWeight: 600, fontSize: 13, textAlign: "center" }}>
-          Select part from your inventory
-        </div>
-      </div>
-      {/* RIGHT: value fields */}
-      <div style={{ flex: 1 }}>
-        <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 3, color:'#003366'}}>Value of the part exchanged</div>
-        <div style={{ display: "flex", gap: 10, marginBottom: 8 }}>
-          <input
-            className="form-input"
-            placeholder="Currency"
-            value={exchangePartCurrency || "USD"}
-            onChange={e => setExchangePartCurrency(e.target.value)}
-            style={{ width: 90 }}
-          />
-          <input
-            className="form-input"
-            placeholder="Value exchange"
-            value={exchangePartValue}
-            onChange={e => setExchangePartValue(e.target.value)}
-            style={{ flex: 1 }}
-            type="number"
-          />
-        </div>
-        <div style={{ fontWeight: 600, fontSize: 15, margin: "14px 0 3px", color:'#003366'}}>Additional funds on top (optional)</div>
-        <div style={{ display: "flex", gap: 10 }}>
-          <input
-            className="form-input"
-            placeholder="Currency"
-            value={exchangeAddCurrency || "USD"}
-            onChange={e => setExchangeAddCurrency(e.target.value)}
-            style={{ width: 90 }}
-          />
-          <input
-            className="form-input"
-            placeholder="Value exchange"
-            value={exchangeAddValue}
-            onChange={e => setExchangeAddValue(e.target.value)}
-            style={{ flex: 1 }}
-            type="number"
-          />
-        </div>
-      </div>
-    </div>
-    <label style={{ display: "block", marginBottom: 14 }}>
-      <div style={{ fontSize: 14, marginBottom: 3, color:'#003366', fontWeight: 600 }}>Quantity you wish to purchase</div>
-      <input
-        type="number"
-        value={counterQuantity}
-        onChange={e => setCounterQuantity(e.target.value)}
-        className="form-input"
-        placeholder="1234..."
-        style={{ width: "100%" }}
-      />
-    </label>
-    <label style={{ display: "block", marginBottom: 22 }}>
-      <div style={{ fontSize: 14, marginBottom: 3, color:'#003366', fontWeight: 600  }}>Message to the Supplier</div>
-      <textarea
-        value={counterMsg}
-        onChange={e => setCounterMsg(e.target.value)}
-        className="form-input"
-        placeholder="Type..."
-        style={{ width: "100%", minHeight: 60 }}
-      />
-    </label>
-    <button
-      className="btn-next"
-      style={{ width: "100%" }}
-      onClick={() => setCounterStep(3)}
-    >
-      Confirm &amp; Send to Supplier
-    </button>
-  </div>
-)}
-      {/* Step 3: Success confirmation */}
-      {counterStep === 3 && (
-        <div style={{ padding: "58px 40px 44px" }}>
-          <h2 style={{ color: "#21b841", marginBottom: 12, fontWeight: 700 }}>Counteroffer Sent!</h2>
-          <p style={{ fontSize: "1.09rem", color: "#253060", marginBottom: 24 }}>
-            Your counteroffer has been sent to the supplier. You will be notified upon their response.
-          </p>
-          <button
-            className="btn-next"
-            style={{ width: "100%" }}
-            onClick={() => setShowCounterModal(false)}
-          >
-            Close
-          </button>
-        </div>
-      )}
-    </div>
-  </div>
-)}
       <div style={{ display: "flex", gap: 4 }}>
         {steps.map((step, idx) => (
           <div
@@ -403,7 +399,7 @@ const handleDownloadDocumentation = () => {
           {activeStep <= 3 ? titles[activeStep - 1] : ""}
         </h2>
       </div>
-    </div>
+    </div></>
   );
 
   // Step 1 modal

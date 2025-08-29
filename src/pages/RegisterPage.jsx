@@ -90,7 +90,7 @@ const navigate = useNavigate();
           <input name="position" placeholder="Position" value={form.position} onChange={handleInput} className="form-input" />
           <input name="password" type="password" placeholder="Create your Password" value={form.password} onChange={handleInput} className="form-input" />
           <input name="repeatPassword" type="password" placeholder="Repeat your Password" value={form.repeatPassword} onChange={handleInput} className="form-input" />
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: 10, color:"#003366" }}>
             <input type="checkbox" name="acceptedTerms" checked={form.acceptedTerms} onChange={handleInput} className="form-checkbox" />
             <span>Accept <a href="#" style={{ color: "#4A90E2", textDecoration: "underline" }}>Terms & Services</a></span>
           </div>
@@ -163,7 +163,7 @@ function renderSummaryStep() {
     <>
 
       <h2 style={{ color:"#003366"}} >Your set-up is now complete!</h2>
-      <h3 style={{ color:"#003366"}} >An email has been sent to activete your account</h3>
+      <h3 style={{ color:"#003366"}} >An email has been sent to activate your account</h3>
       {/* PROFILE RECAP */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 12,color:"#003366" }}>
         <div>

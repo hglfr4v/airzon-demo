@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import '../airzon.css';
 import WorldMap from '../components/WorldMap';
@@ -13,7 +13,14 @@ const MarketPage = () => {
 const [searchTerm, setSearchTerm] = useState("");
 const [searchResults, setSearchResults] = useState([]);
 const [searchPerformed, setSearchPerformed] = useState(false);
-const [mode, setMode] = useState("buyer");
+const location = useLocation();
+
+  const initialMode = location.state?.mode || "buyer";  // default buyer
+  const [mode, setMode] = useState(initialMode);
+
+  // NEW: extra seller sub-state
+const initialSellerView = location.state?.sellerView || "listing"; // 'listing' | 'counteroffer'
+const [sellerView, setSellerView] = useState(initialSellerView);
   // Toggle state: 'parts' or 'events'
 const [activeTab, setActiveTab] = useState('seller');
 const items = [
@@ -213,13 +220,13 @@ useEffect(() => {
 <div className="mode-toggle">
     <button
       className={`mode-btn ${mode === "buyer" ? "active" : ""}`}
-      onClick={() => setMode("buyer")}
+      onClick={() => navigate('/marketplace', { state: { mode: 'buyer' } })}
     >
       Buyer
     </button>
     <button
       className={`mode-btn ${mode === "seller" ? "active" : ""}`}
-      onClick={() => setMode("seller")}
+      onClick={() => navigate('/marketplace', { state: { mode: 'seller' } })}
     >
       Seller
     </button>
@@ -256,6 +263,13 @@ useEffect(() => {
   <button className="track-btn-truck">
     <FaTruck style={{ marginRight: 10, fontSize: 20 }} />
     Track my parts in deliveries
+  </button>
+</div>
+<h3>Make an RFP</h3>
+         <div className="track-section">
+  <button className="track-btn-truck">
+    <FaHandshake style={{ marginRight: 10, fontSize: 20 }} />
+    Request a part to vendors
   </button>
 </div>
         </div>
@@ -397,6 +411,8 @@ useEffect(() => {
           </div>
 
          <div className="right-column">
+                {sellerView === 'counteroffer' ? (
+        <>
   <h3>My latest counteroffers received</h3>
   <section className="listings">
     {sellerItems.map(item => (
@@ -424,17 +440,17 @@ useEffect(() => {
       </div>
     ))}
   </section>
-
-  <h3 style={{ marginTop: '30px' }}>Other listings and offers</h3>
+</>
+      ) : (
+        <>
+  <h3 style={{ marginTop: '30px' }}>My latest listing</h3>
   <section className="listings">
     {additionalListings.map(item => (
       <div key={item.id} className="listing seller-listing">
         <div>
           <strong>{item.title}</strong><br />
           <small>
-            {item.bidders
-              ? `${item.bidders} bidders`
-              : "Not yet viewed"}<br />
+            {item.bidders ? `${item.bidders} bidders` : "0 bidders"}<br />
             Quantity: {item.quantity} – Flight hours: {item.hours} – Condition: {item.condition} – Location: {item.location}
           </small>
         </div>
@@ -448,12 +464,14 @@ useEffect(() => {
           <div className="price-column">
             <div className="price">{item.theirPrice}</div>
             <div className="label">{item.bidders ? "Highest offer" : "Published price"}</div>
-            <button className="reply-btn">View</button>
+            <button className="reply-btn" onClick={() => navigate(`/market/offers/${item.id}`)} >View</button>
           </div>
         </div>
       </div>
     ))}
   </section>
+   </>
+      )}
 </div>
         </section>
         )}

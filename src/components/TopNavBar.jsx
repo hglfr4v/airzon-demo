@@ -13,7 +13,7 @@ const TopNavBar = () => {
   const leftNav = [
     { label: 'Homepage', path: '/', icon: <FaHome /> },
     { label: 'Analytics', path: '/analytics', icon: <FaChartBar /> },
-    { label: 'Market', path: '/market', icon: <FaHandshake /> },
+    { label: 'Market', path: '/marketplace', icon: <FaHandshake /> },
     { label: 'My Inventory', path: '/inventory', icon: <FaBoxes /> },
     { label: 'Events', path: '/events', icon: <FaCalendarAlt /> },
     { label: 'Messages', path: '/messages', icon: <FaComments /> }

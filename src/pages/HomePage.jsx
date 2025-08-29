@@ -119,12 +119,17 @@ const [searchTerm, setSearchTerm] = useState("");
         <div className="cards">
           <div className="card">
             <h3>My market insights</h3>
-            <div className="dashboard-card">
+            <div className="dashboard-card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'counteroffer' } })}
+            >
               {/* Example KPI Stat */}
               <div className="label-home">Buyers waiting for your feedback</div>
               <div className="stat-value-home">10</div>
             </div>
-            <div className="dashboard-card">
+            <div className="dashboard-card"
+            style={{ cursor: "pointer" }}
+             onClick={() => navigate('/market', { state: { mode: 'buyer' } })}>
               {/* Example KPI Stat */}
               <div className="label-home">New offers from your suppliers</div>
               <div className="stat-value-home">15</div>
@@ -227,13 +232,13 @@ const [searchTerm, setSearchTerm] = useState("");
 
       {/* QUICK ACTIONS */}
       <section className="tiles">
-        <div className="tile" ><img src={airplane} alt="List a new part" /><button onClick={() => navigate('/create-item')}>List a new part</button></div>
-        <div className="tile"><img src={handshake} alt="Offers Received" /><button onClick={() => navigate('/')}>Offers Received</button></div>
-        <div className="tile"><img src={container} alt="Follow Deliveries" /><button>Follow Deliveries</button></div>
+        <div className="tile" ><img src={airplane} alt="List a new part" /><button style={{ background: "transparent" }} onClick={() => navigate('/create-item')}>List a new part</button></div>
+        <div className="tile"><img src={handshake} alt="Offers Received" /><button style={{ background: "transparent" }} onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'counteroffer' } })}>Offers Received</button></div>
+        <div className="tile"><img src={container} alt="Follow Deliveries" /><button style={{ background: "transparent" }}>Follow Deliveries</button></div>
         <div className="info">
           <h3>Explore the marketplace</h3>
           <p>Explore Airzon’s marketplace with more than 10,000 listed items and 2,000 members</p>
-          <a href="#">→ Visit the marketplace</a>
+          <a href="/airzon-demo/market">→ Visit the marketplace</a>
         </div>
       </section>
 

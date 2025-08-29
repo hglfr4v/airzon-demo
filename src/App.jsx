@@ -15,6 +15,8 @@ import ItemDetails from './pages/ItemDetails';
 import CreateEvent from './pages/CreateEvent';
 import JoinEvent from './pages/JoinEvent';
 import CreateItem from './pages/CreateItem';
+import MarketPlacePage from './pages/MarketPlacePage';
+import OfferDetailPage from './pages/OfferDetailPage';
 
 
 
@@ -32,6 +34,7 @@ function App() {
         <Route path="/login" element={isAuthenticated ? (<Navigate to="/" />) : (<LoginPage login={login} />)}/>
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/market" element={<MarketPage />} />
+        <Route path="/marketplace" element={<MarketPlacePage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/profile" element={<ProfilePage />} />
@@ -45,8 +48,9 @@ function App() {
         <Route path='create-event' element={<CreateEvent />} />
         <Route path="/join-event/:eventId" element={<JoinEvent />} />
         <Route path="/create-item/" element={<CreateItem />} />
+        <Route path="/market/offers/:id" element={<OfferDetailPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
-
+        
 
 
 
