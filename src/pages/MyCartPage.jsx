@@ -3,6 +3,7 @@ import TopNavBar from '../components/TopNavBar';
 import Footer from '../components/Footer';
 import '../airzon.css';
 import WorldMap from '../components/WorldMap';
+import heroMarket from '../assets/figures/Marketplace.jpg';
 
 // React Icons
 import { FaStar, FaStarHalfAlt, FaRegStar, FaSearch, FaFilter, FaTags, FaFlag, FaDollarSign, FaTools } from 'react-icons/fa';
@@ -44,7 +45,7 @@ const MyCartPage = () => {
   return (
     <div className="market-wrapper">
       <TopNavBar />
-      <section className="hero-market">
+      <section className="hero-market" style={{ backgroundImage: `url(${heroMarket})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-overlay">
           <h1>{activeTab === 'parts' ? "Finalize your purchases" : "Finalize your bookings"}</h1>
         </div>

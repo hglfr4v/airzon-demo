@@ -5,7 +5,7 @@ import '../airzon.css';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FiBox, FiDollarSign, FiGlobe, FiTool, FiUploadCloud } from 'react-icons/fi';
-
+import heroMarket from '../assets/figures/Marketplace.jpg';
 const inventory = [
   {
     name: "ATR landing gear",
@@ -49,7 +49,7 @@ const MyInventory = () => {
       <div className="inventory-wrapper">
         <TopNavBar />
         {/* Hero */}
-        <section className="hero-market">
+        <section className="hero-market" style={{ backgroundImage: `url(${heroMarket})`, backgroundSize: 'cover', backgroundPosition: 'center' }} >
           <div className="hero-overlay-inventory">
             <h1>
               Explore your inventory

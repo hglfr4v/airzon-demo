@@ -7,7 +7,7 @@ import { FaSearch } from 'react-icons/fa';
 import airplane from '../assets/figures/airplane.png';
 import handshake from '../assets/figures/handshake.jpg';
 import container from '../assets/figures/container.png';
-
+import heroMarket from '../assets/figures/Marketplace.jpg';
 
 const MarketPlacePage = () => {
 const [searchTerm, setSearchTerm] = useState("");
@@ -65,7 +65,7 @@ useEffect(() => {
     <div className="market-wrapper">
       <TopNavBar />
       {/* HERO */}
-      <section className="hero-market">
+      <section className="hero-market" style={{ backgroundImage: `url(${heroMarket})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-overlay">
         <h1>{mode === 'seller' ? "Manage your counteroffers received" : "Explore the marketplace and find the right part"}</h1>
         </div>

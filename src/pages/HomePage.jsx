@@ -79,7 +79,7 @@ const [searchTerm, setSearchTerm] = useState("");
       <TopNavBar />
 
       {/* HERO */}
- <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
+ <section className="hero" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
   <div className="hero-overlay">
     <h1>
       <strong>

@@ -4,6 +4,7 @@ import Footer from '../components/Footer.jsx';
 import events from '../assets/data/eventsData.js';
 import { useNavigate } from "react-router-dom";
 import '../airzon.css';
+import heroImage from '../assets/figures/Events.jpg';
 
 import { FaSearch, FaHeart, FaRegCommentDots, FaPaperPlane, FaHandshake } from 'react-icons/fa';
 import { FiGrid, FiDollarSign, FiGlobe, FiUploadCloud,FiMapPin } from 'react-icons/fi';
@@ -20,7 +21,7 @@ const EventsPage = () => {
       <div className='event-wrapper'>
         <TopNavBar />
         {/* HERO */}
-        <section className="hero-events">
+        <section className="hero-events" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <div className="hero-overlay">
             <h1>
               <strong>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-
+import heroMarket from '../assets/figures/Marketplace.jpg';
 import '../airzon.css';
 import WorldMap from '../components/WorldMap';
 import TopNavBar from '../components/TopNavBar';
@@ -167,7 +167,7 @@ useEffect(() => {
     <div className="market-wrapper">
       <TopNavBar />
       {/* HERO */}
-      <section className="hero-market">
+      <section className="hero-market" style={{ backgroundImage: `url(${heroMarket})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-overlay">
         <h1>{mode === 'seller' ? "Manage your counteroffers received" : "Explore the marketplace and find the right part"}</h1>
         </div>
