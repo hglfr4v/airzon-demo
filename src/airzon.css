@@ -3364,10 +3364,9 @@ padding-bottom: 30px;
   margin-bottom: 22px;
 }
 .inventory-filter-btn {
-  background: white;
-  color: #003366;
-
-  border: 2px solid #003366;
+  background: #5C8EDC;
+  color: white;
+  border: 2px solid #5C8EDC;
   font-size: 1rem;
   padding: 14px 20px;
   border-radius: 12px;
@@ -3377,8 +3376,8 @@ padding-bottom: 30px;
   transition: background 0.17s;
 }
 .inventory-filter-btn:hover {
-  background: #003366;
-  color: white;
+  background: #F9F9F9;
+  color: #5C8EDC;
 }
 
 .inventory-upload-row {
@@ -4503,6 +4502,24 @@ textarea.form-input {
   max-width: 420px;
   width: 98vw;
   animation: popIn 0.24s cubic-bezier(.23,1.02,.47,.98);
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 26px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #003366;
 }
 @keyframes popIn {
   0% { transform: scale(0.92); opacity: 0; }

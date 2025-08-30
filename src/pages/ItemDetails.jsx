@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import WorldMap from "../components/WorldMap";
 import imageDetail from "../assets/figures/ATR+MLG.jpeg";
@@ -51,7 +51,7 @@ const ItemDetail = () => {
   const item = items.find(i => String(i.id) === String(id));
 const [showAlertModal, setShowAlertModal] = React.useState(false);
 const [alertStep, setAlertStep] = React.useState(1);
-
+ const [quantity, setQuantity] = useState(1);
 // form fields (customize as needed)
 const [notifyUpload, setNotifyUpload] = React.useState(true);
 const [maxPrice, setMaxPrice] = React.useState("");
@@ -132,6 +132,13 @@ const handleDownloadDocumentation = () => {
       {showAlertModal && (
         <div className="success-overlay">
           <div className="success-modal" style={{ maxWidth: 720, width: "97vw" }}>
+            <button 
+        className="modal-close"
+        onClick={() => setShowAlertModal(false)}
+        aria-label="Close"
+      >
+        ×
+      </button>
             {alertStep === 1 ? (
               <>
                 <h2 style={{ fontWeight: 700, fontSize: "1.29rem", marginBottom: 18 }}>Define the alert</h2>
@@ -196,6 +203,13 @@ const handleDownloadDocumentation = () => {
       {showCounterModal && (
         <div className="success-overlay">
           <div className="success-modal" style={{ maxWidth: 720, width: "97vw", padding: 0, overflow: "hidden" }}>
+           <button 
+        className="modal-close"
+        onClick={() => setShowCounterModal(false)}
+        aria-label="Close"
+      >
+        ×
+      </button>
             {/* Step 1: Counteroffer Form */}
             {counterStep === 1 && (
               <div style={{ padding: "40px 40px 28px" }}>
@@ -562,10 +576,28 @@ const handleDownloadDocumentation = () => {
   if (activeStep === 1) {
     leftActions = (
       <>
-        <button onClick={() => { setShowAlertModal(true); setAlertStep(1); }} className="main-btn" style={{ background: "#e4a829", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}>Mark for alerts</button>
+       <h2 style={{ color: "#003366" }}>Select your quantity</h2>
+              <div className="quantity-selector" style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "2rem" }}>
+  <button
+    type="button"
+    className="qty-btn"
+    onClick={() => setQuantity(q => q - 1)}
+  >
+    −
+  </button>
+  <div className="qty-value" style={{ minWidth: "32px", textAlign: "center", color: "#003366"}}>{quantity}</div>
+  <button
+    type="button"
+    className="qty-btn"
+    onClick={() => setQuantity(q => q + 1)}
+  >
+    +
+  </button>
+</div>
+        <button onClick={() => { setShowAlertModal(true); setAlertStep(1); }} className="main-btn" style={{ background: "#e4a829", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600, color: "white" }}>Mark for alerts</button>
         <button onClick={() => { setShowCounterModal(true); setCounterStep(1); }} className="main-btn" style={{ background: "#e8eaf2", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}>Counteroffer</button>
-        <button onClick={() => setShowBuyModal(true)} className="main-btn" style={{ background: "#2478b6", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}>
-          Buy @ {item.currency} {item.price.toLocaleString()}
+        <button  onClick={() => {setShowBuyModal(false); setActiveStep(2);}} className="main-btn" style={{ background: "#2478b6", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}>
+          Buy @ {item.currency} {(item.price * quantity).toLocaleString()}
         </button>
       </>
     );
@@ -621,7 +653,7 @@ const handleDownloadDocumentation = () => {
                 {item.currency} {item.price.toLocaleString()}
                 {(activeStep > 1) && (
                   <div style={{ fontSize: 18, fontWeight: 500, marginTop: 8 }}>
-                    Selected quantity: {selectedQuantity}
+                    Selected quantity: {quantity}
                   </div>
                 )}
                 {(activeStep > 2) && (

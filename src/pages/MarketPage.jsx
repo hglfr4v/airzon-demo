@@ -389,7 +389,7 @@ useEffect(() => {
   <button className="deal-btn navy">
     <FaCloudUploadAlt size={24} /> RFQ
   </button>
-  <button className="deal-btn blue">
+  <button className="deal-btn blue" onClick={() => navigate('/create-item')}>
     <FaCloudUploadAlt size={24} /> Quote a price
   </button>
 </div>
