@@ -97,7 +97,7 @@ const MyCartPage = () => {
           </div>
           <div className="mycart-filters-row">
             {filterIcons.slice(0, activeTab === 'parts' ? 4 : 3).map(({ icon, label }) => (
-              <button key={label} className={filterBtnClass}>
+              <button key={label} className="mycart-filter-btn blue">
                 <span className="mycart-filter-icon">{icon}</span><br/>
                 {label}
               </button>

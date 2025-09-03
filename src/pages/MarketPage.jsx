@@ -20,9 +20,95 @@ const location = useLocation();
 
   // NEW: extra seller sub-state
 const initialSellerView = location.state?.sellerView || "listing"; // 'listing' | 'counteroffer'
+const initialBuyerView = location.state?.buyerView || "bid"; // 'part' | 'bid'
 const [sellerView, setSellerView] = useState(initialSellerView);
-  // Toggle state: 'parts' or 'events'
+const [buyerView, setBuyerView] = useState(initialBuyerView);
+// Toggle state: 'parts' or 'events'
 const [activeTab, setActiveTab] = useState('seller');
+
+const buyerBids = [
+  {
+    id: "bid-1",
+    itemId: 1,
+    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    seller: "Lion technical services",
+    rating: 4.5,
+    reviews: 97,
+    quantity: 1,
+    hours: "new",
+    location: "Blagnac",
+    rfq: false,
+    originalPrice: "USD 170,000",
+    myBid: "USD 158,000",
+    status: "accepted",          // accepted | refused | lost
+    statusLabel: "Accepted",
+  },
+  {
+    id: "bid-4",
+    itemId: 1,
+    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    seller: "Lion technical services",
+    rating: 4.5,
+    reviews: 97,
+    quantity: 1,
+    hours: "new",
+    location: "Blagnac",
+    rfq: false,
+    originalPrice: "USD 170,000",
+    myBid: "USD 158,000",
+    status: "accepted",          // accepted | refused | lost
+    statusLabel: "Accepted",
+  },
+  {
+    id: "bid-2",
+    itemId: 1,
+    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    seller: "Lion technical services",
+    rating: 4.5,
+    reviews: 97,
+    quantity: 1,
+    hours: "new",
+    location: "Blagnac",
+    rfq: true,
+    originalPrice: "RFQ",
+    myBid: "USD 145,000",
+    status: "refused",
+    statusLabel: "Refused",
+  },
+  {
+    id: "bid-3",
+    itemId: 1,
+    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    seller: "Lion technical services",
+    rating: 4.5,
+    reviews: 97,
+    quantity: 1,
+    hours: "new",
+    location: "Blagnac",
+    rfq: false,
+    originalPrice: "USD 120,000",
+    myBid: "USD 100,000",
+    status: "lost",
+    statusLabel: "Lost",
+  },
+    {
+    id: "bid-5",
+    itemId: 1,
+    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    seller: "Lion technical services",
+    rating: 4.5,
+    reviews: 97,
+    quantity: 1,
+    hours: "new",
+    location: "Blagnac",
+    rfq: false,
+    originalPrice: "USD 120,000",
+    myBid: "USD 100,000",
+    status: "lost",
+    statusLabel: "Lost",
+  },
+];
+
 const items = [
   {
     id: 1,
@@ -32,7 +118,7 @@ const items = [
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
-    price: 5800,
+    price: 150.000,
   },
   {
     id: 2,
@@ -231,7 +317,7 @@ useEffect(() => {
       Seller
     </button>
   </div>
-   {mode === "buyer" && ( 
+  {mode === "buyer" && buyerView === "part" && (
       <section className="market-content">
         
         {/* LEFT COLUMN */}
@@ -267,7 +353,7 @@ useEffect(() => {
 </div>
 <h3>Make an RFP</h3>
          <div className="track-section">
-  <button className="track-btn-truck">
+  <button className="track-btn-truck" onClick={() => navigate('/rfp')}>
     <FaHandshake style={{ marginRight: 10, fontSize: 20 }} />
     Request a part to vendors
   </button>
@@ -286,7 +372,7 @@ useEffect(() => {
                 Quantity: 1 – Flight hours: new – Location: Blagnac</small>
               </div>
               <div className="listing-action">
-                <div>USD 5,800</div>
+                <div>USD 150,000</div>
                 <button className="buy-btn" onClick={() => navigate(`/market/item/1`)}>Buy</button>
               </div>
             </div>
@@ -297,7 +383,7 @@ useEffect(() => {
       Quantity: 1 – Flight hours: new – Location: Blagnac</small>
     </div>
     <div className="listing-action">
-      <div>USD 5,800</div>
+      <div>USD 150,000</div>
       <button className="buy-btn">Buy</button>
     </div>
   </div>
@@ -366,7 +452,88 @@ useEffect(() => {
         </div>
       </section>
       )}
+{mode === "buyer" && buyerView === "bid" && (
+  <section className="market-content">
+    {/* LEFT COLUMN (keep the filters + track) */}
+    <div className="left-column">
+      <h3>Filters & categories</h3>
+      <div className="filters">
+        <div className="filter-buttons">
+          <button><FaThLarge style={{ marginRight: 3 }} /> Categories</button>
+          <button><FaDollarSign style={{ marginRight: 3 }} /> Bid type</button>
+          <button><FaGlobeEurope style={{ marginRight: 3 }} /> Countries</button>
+          <button><FaTools style={{ marginRight: 3 }} /> Condition</button>
+        </div>
+      </div>
 
+      <h3>Track my parts acquired</h3>
+      <div className="track-section">
+        <button className="track-btn-deal">
+          <FaHandshake style={{ marginRight: 10, fontSize: 20 }} />
+          Past deals
+        </button>
+        <button className="track-btn-truck">
+          <FaTruck style={{ marginRight: 10, fontSize: 20 }} />
+          Track my parts in deliveries
+        </button>
+      </div>
+    </div>
+
+    {/* RIGHT COLUMN: Latest bids */}
+    <div className="right-column">
+      <h3>Latest bids</h3>
+      <section className="listings">
+        {buyerBids.map((b) => (
+          <div
+            key={b.id}
+            className={`listing bid-card ${b.status}`}
+            title={b.statusLabel}
+          >
+            <div>
+              <strong>{b.title}</strong><br />
+              <small>
+                Seller: {b.seller} {renderStars(b.rating)} ({b.reviews} reviews)<br />
+                Quantity: {b.quantity} – Flight hours: {b.hours} – Location: {b.location}
+              </small>
+            </div>
+
+            <div className="bid-action">
+              <div className="bid-col">
+                <div className="bid-col-title">{b.rfq ? "RFQ" : "Price"}</div>
+                <div className="bid-value">{b.rfq ? "RFQ" : b.originalPrice}</div>
+                <div className="bid-sub">The original offer</div>
+              </div>
+
+              <div className="divider" />
+
+              <div className="bid-col">
+                <div className="bid-col-title">USD</div>
+                <div className="bid-value">{b.myBid}</div>
+                <div className="bid-sub">My bidding offer</div>
+              </div>
+
+              <div className="divider" />
+
+              <div className="bid-col end">
+                <span className={`bid-status-tag ${b.status}`}>{b.statusLabel}</span>
+                <button
+                  className={`buy-btn ${b.status === "accepted" ? "" : "outline"}`}
+                  onClick={() =>
+                    b.status === "accepted"
+                      ? navigate(`/checkout/${b.id}`)
+                      : navigate(`/market/item/${b.itemId}`)
+                  }
+                >
+                  {b.status === "accepted" ? "Buy" : "Bid"}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+    </div>
+  </section>
+)}
         {mode === "seller" && ( 
 
             <section className="market-content">

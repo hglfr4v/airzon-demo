@@ -9,7 +9,11 @@ const ProfilePage = () => {
    <>
     <TopNavBar />
     <div className="profile-wrapper">
-      <h1 className="profile-title">Your profile</h1>
+     <div className="profile-header">
+  <h1 className="profile-title">Your profile</h1>
+  <button className="logout-btn">Logout</button>
+</div>
+
       <div className="profile-grid">
         {/* Left: General info */}
         <section className="profile-card">

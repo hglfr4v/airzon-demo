@@ -137,10 +137,11 @@ useEffect(() => {
       <article className="qa-card">
         <div className="qa-media">
           <img src={airplane} alt="Buyer - new part" />
-          <span className="qa-chip buyer">Buy a new part</span>
+          <span className="qa-chip buyer">Buy </span>
         </div>
-        <div className="qa-body">
-          <button className="qa-primary buyer" onClick={() => navigate('/market')}>Check the market</button>
+        <div className="qa-row">
+          <button className="qa-primary buyer equal " onClick={() => navigate('/market', { state: { mode: 'buyer', buyerView: 'part' } })}>Check the market</button>
+          <button className="qa-secondary buyer equal btn-003366" onClick={() => navigate('/market', { state: { mode: 'buyer', buyerView: 'bid' } })}>Check your bids</button>
         </div>
       </article>
 
@@ -151,7 +152,7 @@ useEffect(() => {
           <span className="qa-chip buyer">Make an RFP</span>
         </div>
         <div className="qa-body">
-          <button className="qa-primary buyer">Request a part to vendors</button>
+          <button className="qa-primary buyer" onClick={() => navigate('/rfp')}>Request a part to vendors</button>
         </div>
       </article>
 
@@ -159,7 +160,7 @@ useEffect(() => {
       <article className="qa-card">
         <div className="qa-media">
           <img src={container} alt="Buyer - track" />
-          <span className="qa-chip buyer">Track parts acquired</span>
+          <span className="qa-chip buyer">Track </span>
         </div>
         <div className="qa-row">
   <button className="qa-secondary equal btn-003366">Track past deals</button>

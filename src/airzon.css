@@ -891,6 +891,88 @@ button {
   }
 }
 
+/* Buyer sub-toggle */
+.buyer-subtoggle{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin: -10px auto 16px;
+}
+.buyer-sub-btn{
+  padding:8px 18px;
+  border-radius:20px;
+  border:1px solid #d1d5db;
+  background:#fff;
+  color:#003366;
+  font-weight:600;
+  cursor:pointer;
+}
+.buyer-sub-btn.active{
+  background:#003366;
+  color:#fff;
+  border-color:#003366;
+}
+
+/* Bids cards */
+.bid-card{
+  border:2px solid #F0F4FA;
+  border-radius:10px;
+  background:#fff;
+}
+.bid-card.accepted{ border-color:#2ecc71; box-shadow:0 0 0 1px #b9f3d0 inset; }
+.bid-card.refused,
+.bid-card.lost{ background:#f7f7f8; color:#6b7280; }
+
+.bid-action{
+  display:flex;
+  align-items:stretch;
+  gap:18px;
+  padding-left:16px;
+  border-left:1px solid #003366;
+  min-width: 260px;
+}
+
+.bid-col{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  min-width:110px;
+}
+.bid-col.end{ min-width:120px; align-items:flex-end; gap:8px; }
+
+.bid-col-title{
+  font-size:.8rem;
+  color:#6b7280;
+  margin-bottom:2px;
+}
+.bid-value{
+  font-weight:800;
+  color:#003366;
+}
+.bid-sub{
+  font-size:.75rem;
+  color:#6b7280;
+}
+
+/* Status pill */
+.bid-status-tag{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:700;
+}
+.bid-status-tag.accepted{ background:#e6faf0; color:#14804a; }
+.bid-status-tag.refused{ background:#f4e9ea; color:#a33d3d; }
+.bid-status-tag.lost{ background:#eee; color:#6b7280; }
+
+/* Buy/Bid button nuance */
+.buy-btn.outline{
+  background:#fff;
+  color:#003366;
+  border:1px solid #cfd8e3;
+}
+
 .dashboard-card {
   background-color: #355272;
   border-radius: 12px;
@@ -2839,12 +2921,36 @@ border: 2px;
   width: 100%;
 }
 
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 64px 32px 64px; /* match profile-title spacing */
+}
+
 .profile-title {
-  margin-left: 64px;
-  margin-bottom: 32px;
+  margin: 5px;
   font-size: 2.2rem;
   font-weight: 800;
   color: #2c3351;
+}
+
+.logout-btn {
+  background: #003366;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: background 0.2s;
+}
+
+.logout-btn:hover {
+  background: #0F75E0;
+  color: white;
 }
 
 .profile-grid {
@@ -3084,7 +3190,7 @@ border: 2px;
   margin-bottom: 0;
   transition: background 0.15s, color 0.15s;
   min-width: 0;
-  box-shadow: 0 2px 8px rgba(60,60,100,0.04);
+  box-shadow: 0 2px 8px rgba(60,60,100,0.6);
 }
 
 .mycart-filter-btn.blue {
@@ -3096,6 +3202,7 @@ border: 2px;
 .mycart-filter-btn.blue:focus {
   background: #5C8EDC;
   color: white;
+    box-shadow: 0 6px 12px rgba(30,50,120,0.09);
 }
 .mycart-filter-btn.grey {
   background: #e9eef6;
@@ -4668,7 +4775,7 @@ textarea.form-input {
   border-radius: 12px;
   padding: 12px 16px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
   transition: transform 0.06s ease, box-shadow 0.2s ease;
   color: #fff;
@@ -4689,8 +4796,8 @@ textarea.form-input {
   background: #fff;
   border-radius: 10px;
   padding: 10px 12px;
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
@@ -4713,7 +4820,7 @@ textarea.form-input {
 
 /* row with equal-width buttons */
 .qa-row {
-  
+
   padding: 16px 5px 12px 5px;
   display: flex;
   gap: 5px;
@@ -4724,6 +4831,7 @@ textarea.form-input {
 /* make each button expand to same width */
 .qa-row .equal {
   flex: 1 1 0;
+
 }
 
 /* base style already present for .qa-secondary;
@@ -5223,4 +5331,326 @@ textarea.form-input {
 .od-action-message:has(> :contains("❌")) {
   background: #fcebea;
   color: #991b1b;
+}
+
+/*-----------------------------------------RFP--------------------------------------*/
+
+:root{
+  --airz-blue:#123d6b;
+  --airz-blue-2:#0e3157;
+  --airz-accent:#4b89ff;
+  --airz-accent-2:#e4a829;
+  --ink:#0f172a;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --bg:#f7f9fc;
+  --white:#ffffff;
+  --green:#1fbf75;
+}
+
+
+
+.rfp-page{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--ink);
+  padding-top: 92px;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+
+
+.rfp-container{
+  max-width:1200px;
+  margin:24px auto 80px;
+  padding:0 16px;
+}
+
+.rfp-steps{
+  display:flex;
+  gap:14px;
+  margin-bottom:16px;
+}
+.rfp-step{
+  background:#eef3fb;
+  color:#193b63;
+  border:1px solid var(--border);
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.2s;
+}
+.rfp-step.active{
+  background:#003366;
+  border-color:#003366;
+  box-shadow:0 0 0 2px #cfe1ff inset;
+  font-weight:600;
+  color: white;
+}
+.rfp-step.done{
+  opacity:.75;
+}
+/* 3-column grid for step 3 */
+.rfp-grid.three{
+  grid-template-columns: 260px 1fr 380px;
+}
+
+/* Left summary bar */
+.rfp-leftbar{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--white);
+  padding:16px;
+  position:sticky;
+  top:84px; /* below header */
+  align-self:start;
+}
+
+.rfp-leftbar-header{
+  margin-bottom:10px;
+}
+.rfp-pill{
+  display:inline-block;
+  background:#fff;
+  color:#0F75E0;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:6px;
+  margin-bottom:8px;
+}
+.rfp-leftbar-title{
+  font-weight:700;
+  color:var(--airz-blue-2);
+  margin-bottom:2px;
+}
+.rfp-leftbar-sub{
+  font-size:12px;
+  color:#4b5b78;
+}
+
+.rfp-leftbar-list{
+  list-style:none;
+  padding:8px 0 0;
+  margin:0;
+}
+.rfp-leftbar-list li{
+  font-size:14px;
+  color:#2b3f5f;
+  padding:6px 0;
+  border-bottom:1px dotted #e8edf7;
+}
+.rfp-leftbar-list li:last-child{ border-bottom:none }
+.rfp-grid{
+  display:grid;
+  grid-template-columns: 1fr 380px;
+  gap:28px;
+  align-items:start;
+}
+
+.rfp-left{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--white);
+}
+.rfp-left h2{
+  margin:6px 0 18px;
+  color:var(--airz-blue-2);
+  font-size:20px;
+}
+
+.rfp-label{
+  display:block;
+  font-size:15px;
+  color:#415472;
+  margin:12px 0 6px;
+}
+
+.rfp-input{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+  padding:12px 2px;
+  font-size:15px;
+  outline:none;
+  color: #003366;
+}
+.rfp-input:focus{
+  border-color:#c5d7ff;
+  box-shadow:0 0 0 3px #e7f0ff;
+}
+
+.rfp-textarea{resize:vertical}
+
+.rfp-row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.rfp-col{display:flex; flex-direction:column}
+
+.rfp-choice-row{
+  display:flex;
+  gap:16px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.rfp-choice{
+  border:1px solid var(--border);
+  padding:14px 18px;
+  border-radius:12px;
+  background: #E7E6E6;
+  color:#003366;
+  cursor:pointer;
+}
+.rfp-choice.selected{
+  border-color:#5C8EDC;
+  background:#5C8EDC;
+  box-shadow:0 0 0 2px #d7e6ff inset;
+  font-weight:600;
+  color: white;
+}
+
+.rfp-suppliers{
+  margin-top:8px;
+  border:1px dashed #d7def0;
+  border-radius:10px;
+  padding:12px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:8px;
+}
+.rfp-supplier{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+}
+
+.rfp-upload{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--white);
+}
+.rfp-drop{
+  border:2px dashed #cfe1ff;
+  border-radius:14px;
+  padding:36px 12px;
+  text-align:center;
+  background:#f7fbff;
+  position:relative;
+}
+.rfp-drop input[type=file]{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  cursor:pointer;
+}
+.rfp-cloud{
+  width:56px; height:56px;
+  margin:0 auto 10px;
+  background:linear-gradient(#cfe1ff,#9fc1ff);
+  border-radius:12px;
+}
+
+/* Upload icon styling */
+.rfp-cloud-icon {
+  font-size: 42px;
+  color: var(--airz-accent);
+  margin-bottom: 10px;
+}
+
+/* Centered button row */
+.rfp-upload-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.rfp-media-list{
+  margin:14px 0;
+  padding:0;
+  list-style:none;
+}
+.rfp-media-list li{
+  display:flex; justify-content:space-between; gap:12px;
+  padding:8px 0; border-bottom:1px dotted #e8edf7;
+  font-size:14px;
+}
+.rfp-file{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:230px}
+.link{
+  color:#316cff; background:none; border:none; padding:0; cursor:pointer;
+}
+
+.rfp-summary{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--white);
+  overflow:hidden;
+}
+.rfp-summary-media{
+  padding:14px 14px 0 14px;
+}
+.rfp-summary-media img,
+.rfp-summary-placeholder{
+  width:100%; height:200px; object-fit:cover; border-radius:12px;
+  background:#eef3fb; display:flex; align-items:center; justify-content:center;
+}
+.rfp-summary-info{padding:10px 16px 18px}
+.rfp-summary-info h3{margin:6px 0 8px; color:#123d6b}
+.rfp-summary-info ul{margin:0; padding-left:16px}
+.rfp-summary-info li{margin:6px 0; color:#2b3f5f; font-size:14px}
+
+.rfp-exchange{
+  margin-top:16px; padding:14px; border:1px solid #e9eef8; border-radius:12px; background:#fbfdff;
+}
+.rfp-exchange h4{ margin:0 0 10px; color:#193b63 }
+.rfp-upload-btn{
+  width:100%;
+  background:#0F75E0;
+  border:1px solid #cfe1ff;
+  border-radius:10px;
+  padding:12px;
+  cursor:pointer;
+}
+.rfp-note{margin:8px 0 0; color:#415472; font-size:13px}
+
+.rfp-radio{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin:8px 0;
+  background:#fff;
+  cursor:pointer;
+}
+.rfp-radio input{accent-color:#2b6be7}
+
+
+.rfp-actions{display:flex; gap:12px; margin-top:16px}
+
+
+
+.btn{
+  border:none;
+  background:#e3ecff;
+  color:#163a61;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn:hover{filter:brightness(.98)}
+.btn:disabled{opacity:.5; cursor:not-allowed}
+.btn.primary{background:var(--airz-accent); color:#fff}
+.btn.ghost{background:#fff; border:1px solid var(--border)}
+
+@media (max-width: 980px){
+  .rfp-grid{grid-template-columns:1fr}
+  .rfp-summary{order:-1}
+}
+
+@media (max-width: 560px){
+  .rfp-row{grid-template-columns:1fr}
+  .rfp-nav{display:none}
 }

@@ -17,6 +17,7 @@ import JoinEvent from './pages/JoinEvent';
 import CreateItem from './pages/CreateItem';
 import MarketPlacePage from './pages/MarketPlacePage';
 import OfferDetailPage from './pages/OfferDetailPage';
+import RFPPage from './pages/RfpPage';
 
 
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/join-event/:eventId" element={<JoinEvent />} />
         <Route path="/create-item/" element={<CreateItem />} />
         <Route path="/market/offers/:id" element={<OfferDetailPage />} />
+        <Route path="/rfp" element={<RFPPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
         
 
