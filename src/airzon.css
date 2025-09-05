@@ -1945,6 +1945,7 @@ color: white;
   align-items: flex-end;
   max-width: 100px;
   border-left: 1px solid #003366;
+  padding-left:10px;
 
 }
 .buy-btn {
@@ -3760,6 +3761,8 @@ textarea.form-input {
   display: flex;
   margin-bottom: 22px;
 }
+
+
 
 .step-actions {
   display: flex;
@@ -5650,6 +5653,7 @@ textarea.form-input {
   margin:8px 0;
   background:#fff;
   cursor:pointer;
+  color: #003366;
 }
 .rfp-radio input{accent-color:#2b6be7}
 

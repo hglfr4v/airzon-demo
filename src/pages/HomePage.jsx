@@ -232,7 +232,7 @@ const [searchTerm, setSearchTerm] = useState("");
 
       {/* QUICK ACTIONS */}
       <section className="tiles">
-        <div className="tile" ><img src={airplane} alt="List a new part" /><button style={{ background: "transparent" }} onClick={() => navigate('/create-item')}>List a new part</button></div>
+        <div className="tile" ><img src={airplane} alt="List a part" /><button style={{ background: "transparent" }} onClick={() => navigate('/create-item')}>List a part</button></div>
         <div className="tile"><img src={handshake} alt="Offers Received" /><button style={{ background: "transparent" }} onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'counteroffer' } })}>Offers Received</button></div>
         <div className="tile"><img src={container} alt="Follow Deliveries" /><button style={{ background: "transparent" }}>Follow Deliveries</button></div>
         <div className="info">

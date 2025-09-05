@@ -67,7 +67,7 @@ useEffect(() => {
       {/* HERO */}
       <section className="hero-market" style={{ backgroundImage: `url(${heroMarket})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-overlay">
-        <h1>{mode === 'seller' ? "Manage your counteroffers received" : "Make a new deals, track your deliveries, grow your business"}</h1>
+        <h1>{mode === 'seller' ? "Make a new deals, track your deliveries, grow your business" : "Make a new deals, track your deliveries, grow your business"}</h1>
         </div>
         <div className="search-bar-wrapper">
           <form className="search-box" onSubmit={handleSearch}>
@@ -178,7 +178,7 @@ useEffect(() => {
       <article className="qa-card">
         <div className="qa-media">
           <img src={airplane} alt="Seller - list part" />
-          <span className="qa-chip seller">List a new part</span>
+          <span className="qa-chip seller">List</span>
         </div>
        <div className="qa-row">
   <button className="qa-secondary equal btn-yellow">Confidential price</button>
@@ -194,8 +194,10 @@ useEffect(() => {
           <span className="qa-chip seller">My offers</span>
         </div>
        <div className="qa-row">
-  <button className="qa-secondary equal btn-003366" onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'counteroffer' } })}>See counteroffers received</button>
-  <button className="qa-secondary equal btn-5C8EDC"   onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'listing' } })}>See all my parts listed</button>
+  <button className="qa-secondary equal btn-yellow" onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'counteroffer' } })}>Counteroffers received</button>
+    <button className="qa-secondary equal btn-003366"   >RFP received</button>
+  <button className="qa-secondary equal btn-5C8EDC"   onClick={() => navigate('/market', { state: { mode: 'seller', sellerView: 'listing' } })}>My parts listed</button>
+
 </div>
       </article>
 
@@ -203,7 +205,7 @@ useEffect(() => {
       <article className="qa-card">
         <div className="qa-media">
           <img src={container} alt="Seller - track" />
-          <span className="qa-chip seller">Track parts sold</span>
+          <span className="qa-chip seller">Track</span>
         </div>
         <div className="qa-row">
   <button className="qa-secondary equal btn-003366">Track past deals</button>

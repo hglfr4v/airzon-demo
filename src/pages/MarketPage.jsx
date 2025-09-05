@@ -114,7 +114,7 @@ const items = [
     id: 1,
     type: "item",
     name: "ATR landing gear",
-    part: "134-234-555",
+    part: "Part D23189000-22",
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
@@ -367,7 +367,7 @@ useEffect(() => {
            
             <div className="listing sponsored">
               <div>
-                <strong>Item:</strong> ATR landing gear | Part 134-234-555<br />
+                <strong>Item:</strong> ATR landing gear | Part C20595100<br />
                 <small>Seller: Lion technical services {renderStars(4.5)} (97 reviews)<br />
                 Quantity: 1 – Flight hours: new – Location: Blagnac</small>
               </div>
@@ -378,7 +378,7 @@ useEffect(() => {
             </div>
               <div className="listing sponsored">
     <div>
-      <strong>Item:</strong> ATR landing gear | Part 134-234-555<br />
+      <strong>Item:</strong> ATR landing gear | Part C20595100<br />
       <small>Seller: Lion technical services {renderStars(5)} (180 reviews)<br />
       Quantity: 1 – Flight hours: new – Location: Blagnac</small>
     </div>
@@ -390,7 +390,7 @@ useEffect(() => {
 
   <div className="listing sponsored">
     <div>
-      <strong>Item:</strong> Airbus passenger seats | Part 999-000-000<br />
+      <strong>Item:</strong> A320 Family – Brake Assembly | Part C20595100<br />
       <small>Seller: Giraffe technical services {renderStars(3.5)} (10 reviews)<br />
       Quantity: 3 – Flight hours: new – Location: Blagnac</small>
     </div>
@@ -402,7 +402,7 @@ useEffect(() => {
 
   <div className="listing">
     <div>
-      <strong>Item:</strong> ATR 72-600 MLG | Part 134-234-587<br />
+      <strong>Item:</strong> ATR landing gear | Part C20595100<br />
       <small>Seller: Lion technical services {renderStars(5)} (200 reviews)<br />
       Quantity: 1 – Flight hours: new – Location: Blagnac</small>
     </div>
@@ -414,7 +414,7 @@ useEffect(() => {
 
   <div className="listing">
     <div>
-      <strong>Item:</strong> ATR 72-500 MLG | Part 134-234-585<br />
+      <strong>Item:</strong> ATR landing gear | Part C20595100<br />
       <small>Seller: Lion technical services {renderStars(3)} (1000 reviews)<br />
       Quantity: 1 – Flight hours: new – Location: Blagnac</small>
     </div>
@@ -426,7 +426,7 @@ useEffect(() => {
 
   <div className="listing">
     <div>
-      <strong>Item:</strong> ATR landing gear | Part 134-234-555<br />
+      <strong>Item:</strong> ATR landing gear | Part C20595100<br />
       <small>Seller: Lion technical services {renderStars(4.5)} (157 reviews)<br />
       Quantity: 1 – Flight hours: new – Location: Blagnac</small>
     </div>
@@ -438,7 +438,7 @@ useEffect(() => {
 
   <div className="listing">
     <div>
-      <strong>Item:</strong> Cessna landing gear | Part 333-567<br />
+      <strong>Item:</strong> ATR landing gear | Part C20595100<br />
       <small>Seller: Lion technical services {renderStars(4.5)} (130 reviews)<br />
       Quantity: 1 – Flight hours: new – Location: Blagnac</small>
     </div>

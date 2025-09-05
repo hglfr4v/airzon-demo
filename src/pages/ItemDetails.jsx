@@ -11,7 +11,7 @@ const items = [
   {
     id: 1,
     name: "ATR Main Landing Gear",
-    partNumber: "02118000-22",
+    partNumber: "C20595100",
     serialNumber: "12345679",
     price: 150000,
     currency: "USD",
@@ -95,6 +95,19 @@ const [exchangePartQty, setExchangePartQty] = React.useState("");
     state: { vendor: "Lion technical services" }
   });
 };
+
+const [maxStepReached, setMaxStepReached] = React.useState(1);
+
+function goToStep(next) {
+  // prevent jumping beyond what's unlocked
+  const safeNext = Math.min(next, maxStepReached);
+  setActiveStep(safeNext);
+}
+
+function unlockAndGo(next) {
+  setMaxStepReached(prev => Math.max(prev, next));
+  setActiveStep(next);
+}
 const handleDownloadDocumentation = () => {
   fetch(documentationPDF)
     .then(response => response.blob())
@@ -134,7 +147,7 @@ const handleDownloadInvoice = () => {
   ];
   const titles = [
     "Select your quantity and price",
-    "Review conditions and validate documentation in the blockchain",
+    "Review conditions and check documentation on the blockchain",
     "Confirm your payment details"
   ];
 
@@ -410,25 +423,40 @@ const handleDownloadInvoice = () => {
           </div>
         </div>
       )}
-      <div style={{ display: "flex", gap: 4 }}>
-        {steps.map((step, idx) => (
-          <div
-            key={idx}
-            className={`step${activeStep === idx + 1 ? " step-active" : ""}`}
-            style={{
-              padding: "6px 18px", borderRadius: 16,
-              background: activeStep === idx + 1 ? "#204574" : "#f2f4fa",
-              color: activeStep === idx + 1 ? "#fff" : "#7d8ca0",
-              fontSize: "1rem", fontWeight: 500, marginRight: 4
-            }}
-          >
-            {step}
-          </div>
-        ))}
-        <h2 style={{ color: "#003366", marginLeft: 10, fontWeight: 600 }}>
-          {activeStep <= 3 ? titles[activeStep - 1] : ""}
-        </h2>
-      </div>
+  <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+  {steps.map((step, idx) => {
+    const stepNum = idx + 1;
+    const isActive = activeStep === stepNum;
+    const isUnlocked = stepNum <= maxStepReached;
+    return (
+      <button
+        key={idx}
+        type="button"
+        onClick={() => goToStep(stepNum)}
+        disabled={!isUnlocked || activeStep > 3} // lock after final confirmation
+        aria-current={isActive ? "step" : undefined}
+        aria-disabled={!isUnlocked}
+        className={`step${isActive ? " step-active" : ""}`}
+        style={{
+          padding: "6px 18px",
+          borderRadius: 16,
+          border: "none",
+          cursor: isUnlocked && activeStep <= 3 ? "pointer" : "not-allowed",
+          background: isActive ? "#204574" : (isUnlocked ? "#f2f4fa" : "#eef1f6"),
+          color: isActive ? "#fff" : (isUnlocked ? "#7d8ca0" : "#b9c3d2"),
+          fontSize: "1rem",
+          fontWeight: 500,
+          marginRight: 4
+        }}
+      >
+        {step}
+      </button>
+    );
+  })}
+  <h2 style={{ color: "#003366", marginLeft: 10, fontWeight: 600 }}>
+    {activeStep <= 3 ? titles[activeStep - 1] : ""}
+  </h2>
+</div>
     </div></>
   );
 
@@ -495,7 +523,7 @@ const handleDownloadInvoice = () => {
           disabled={!selectedQuantity}
           onClick={() => {
             setShowBuyModal(false);
-            setActiveStep(2);
+            unlockAndGo(2);
           }}
         >
           Confirm & Proceed
@@ -552,7 +580,7 @@ const handleDownloadInvoice = () => {
         marginBottom: 22,
         marginTop: 24
       }}>
-        Payment Validated — you can now download your invoice
+        Payment Validated — you can now download your receipt
       </div>
       {/* Example: fake progress image/line */}
       <div style={{ background: "#f8fafd", borderRadius: 16, marginBottom: 30, padding: 16 }}>
@@ -583,7 +611,7 @@ const handleDownloadInvoice = () => {
         </div>
       </div>
       <button className="main-btn" style={{ background: "#203050", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600, marginBottom: 12 }}>Track my order</button>
-      <button className="main-btn" style={{ background: "#8db2f7", color: "#204574", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }} onClick={handleDownloadInvoice}>Download invoice</button>
+      <button className="main-btn" style={{ background: "#8db2f7", color: "#204574", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }} onClick={handleDownloadInvoice}>Download receipt</button>
     </div>
   );
 
@@ -621,9 +649,10 @@ const handleDownloadInvoice = () => {
     leftActions = (
       <>
         <button className="main-btn" style={{ background: "#203050", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}>Save in cart</button>
-        <button className="main-btn" style={{ background: "#6788db", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}
-          onClick={() => setActiveStep(3)}
-        >Validate documentation</button>
+        <button className="main-btn" style={{ background: "#02AF4F", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}
+          onClick={() => unlockAndGo(3)}
+        >Check documentation</button>
+        <p style={{ fontSize: 14, color: "#02AF4F", marginTop: 8 }}>Click here to verify the authenticity of the uploaded documentation via blockchain technology</p>
       </>
     );
   } else if (activeStep === 3) {
@@ -634,7 +663,7 @@ const handleDownloadInvoice = () => {
           className="main-btn"
           style={{ background: "#8db2f7", color: "#204574", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}
           disabled={!iban || !bic}
-          onClick={() => setActiveStep(4)}
+          onClick={() => unlockAndGo(4)}
         >Buy</button>
       </>
     );

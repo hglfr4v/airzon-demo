@@ -309,6 +309,14 @@ export default function RfpPage() {
                 onChange={handleChange("lastMaintenanceDate")}
               />
 
+               <Label>Set a maximum price (optional)</Label>
+              <input
+               placeholder="1,2,3,4…"
+                className="rfp-input"
+                value={form.lastMaintenanceDate}
+                onChange={handleChange("lastMaintenanceDate")}
+              />
+
               <Label>Your preferred suppliers that will receive the RFP</Label>
               <div className="rfp-choice-row">
                 <button

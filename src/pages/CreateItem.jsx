@@ -15,7 +15,6 @@ import Footer from "../components/Footer";
   location: "",
   description: "",
   quantity: "",
-  uom: "",
   flightHours: "New",
   cycles: "New",
   price: "",
@@ -41,6 +40,15 @@ const paymentOptions = [
   "Bilateral payment without escrow account"
 ];
 
+function Radio({ name, value, checked, onChange, label }) {
+  return (
+    <label className="rfp-radio">
+      <input type="radio" name={name} value={value} checked={checked} onChange={onChange} />
+      <span />
+      {label}
+    </label>
+  );
+}
 
 const CreateItem = () => {
   const [step, setStep] = useState(1);
@@ -48,15 +56,39 @@ const CreateItem = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [docName, setDocName] = useState(null);
 
+  const initialForm = {
+  // Step 1
+  name: "",
+  partNumber: "",
+  rfpUntilDate: "",
+  rfpUntilTime: "",
+  aircraftType: "",
+  sellerName: "",
+  sellerLocation: "",
+  engineType: "",
+  currentLocation: "",
+  description: "",
+  media: [],
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setItem((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+  // Step 2
+  quantity: "",
+  flightHours: "New",
+  cycles: "New",
+  lastMaintenanceDate: "",
+  preferredRecipients: "anchor", // anchor | all | selected
+  selectedSuppliers: [],
 
+  // Step 3
+  paymentType: "airzon_escrow", // airzon_escrow | bilateral_escrow | airzon_no_escrow | bilateral_no_escrow
+  acceptedCurrencies: "ALL",
+  exchangeCurrency: "USD",
+  exchangeValue: "",
+  exchangePartId: "",
+};
+
+  const handleChange = (field) => (e) =>
+    setForm((f) => ({ ...f, [field]: e.target.value }));
+const [form, setForm] = useState(initialForm);
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -65,6 +97,10 @@ const CreateItem = () => {
     }
   };
 
+  function Label({ children }) {
+  return <label className="rfp-label">{children}</label>;
+}
+
   const handleDocUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -72,7 +108,10 @@ const CreateItem = () => {
       setDocName(file.name);
     }
   };
-
+  const handleNumberOnly = (field) => (e) => {
+    const v = e.target.value.replace(/[^\d.,]/g, "");
+    setForm((f) => ({ ...f, [field]: v }));
+  };
   const nextStep = () => setStep((s) => Math.min(3, s + 1));
   const prevStep = () => setStep((s) => Math.max(1, s - 1));
 const [showBanner, setShowBanner] = useState(false);
@@ -198,13 +237,10 @@ const [showBanner, setShowBanner] = useState(false);
             <div className="create-item-form">
               <div className="form-fields">
                 <label>
-                  Quantity sold
+                  Quantity
                   <input name="quantity" value={item.quantity} onChange={handleChange} placeholder="1,2,3,4..." />
                 </label>
-                <label>
-                  Unit of measure
-                  <input name="uom" value={item.uom} onChange={handleChange} placeholder="Item" />
-                </label>
+                
                 <div className="two-cols">
                   <label>
                     Flight hours
@@ -279,46 +315,99 @@ const [showBanner, setShowBanner] = useState(false);
                   <div>Aircraft type: <span>{item.aircraftType || "ATR 72-500"}</span></div>
                 </div>
               </div>
-              <div className="form-fields" style={{ maxWidth: 440 }}>
-                <div className="review-title">Select type of payment</div>
-                <div className="pay-radio-group">
-                  {paymentOptions.map((opt, idx) => (
-                    <label key={idx} className="pay-radio">
-                      <input
-                        type="radio"
-                        name="paymentType"
-                        checked={item.paymentType === opt}
-                        value={opt}
-                        onChange={handleChange} />
-                      <span>{opt}</span>
-                    </label>
-                  ))}
-                </div>
-                <label>
-                  IBAN
-                  <input name="iban" value={item.iban} onChange={handleChange} placeholder="IBAN" />
-                </label>
-                <label>
-                  BIC
-                  <input name="bic" value={item.bic} onChange={handleChange} placeholder="BIC" />
-                </label>
-                <div className="switch-row">
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="useProfile"
-                      checked={item.useProfile}
-                      onChange={handleChange} />{" "}
-                    Use my profile details
-                  </label>
-                </div>
-                <div className="create-item-actions">
-                  <button className="btn-draft" onClick={prevStep}>Back</button>
-                  <button className="btn-next btn-validate" type="button" onClick={() => setShowBanner(true)}>
-                    Validate
-                  </button>
-                </div>
-              </div>
+              <div className="rfp-left">
+      <h2>Indicate preferred means of payment</h2>
+
+      <Radio
+        className="input-create-item"
+        name="paymentType"
+        value="airzon_escrow"
+        checked={form.paymentType === "airzon_escrow"}
+        onChange={handleChange("paymentType")}
+        label="Payment via Airzon with escrow account managed by Escrow Agent Partner"
+        style={{ color: "#003366" }}
+      />
+      <Radio
+        name="paymentType"
+        value="bilateral_escrow"
+        checked={form.paymentType === "bilateral_escrow"}
+        onChange={handleChange("paymentType")}
+        label="Bilateral payment with escrow account managed by Escrow Agent Partner"
+      />
+      <Radio
+        name="paymentType"
+        value="airzon_no_escrow"
+        checked={form.paymentType === "airzon_no_escrow"}
+        onChange={handleChange("paymentType")}
+        label="Payment via Airzon without escrow account"
+      />
+      <Radio
+        name="paymentType"
+        value="bilateral_no_escrow"
+        checked={form.paymentType === "bilateral_no_escrow"}
+        onChange={handleChange("paymentType")}
+        label="Bilateral payment without escrow account"
+      />
+
+      <div className="rfp-row">
+        <div className="rfp-col">
+          <Label>Accepted currencies</Label>
+          <select
+            className="rfp-input"
+            value={form.acceptedCurrencies}
+            onChange={handleChange("acceptedCurrencies")}
+          >
+            <option value="ALL">All</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="rfp-exchange">
+        <h4>Include a part exchange (optional)</h4>
+        <div className="rfp-row">
+          <div className="rfp-col">
+            <button
+              type="button"
+              className="rfp-upload-btn"
+              onClick={() => setForm((f) => ({ ...f, exchangePartId: "INV-1234" }))}
+              title="Select from your inventory"
+            >
+              Select part from your inventory
+            </button>
+          </div>
+          <div className="rfp-col">
+            <Label>Currency</Label>
+            <select
+              className="rfp-input"
+              value={form.exchangeCurrency}
+              onChange={handleChange("exchangeCurrency")}
+            >
+              <option>USD</option>
+              <option>EUR</option>
+              <option>GBP</option>
+            </select>
+          </div>
+          <div className="rfp-col">
+            <Label>Value exchange</Label>
+            <input
+              className="rfp-input"
+              placeholder="1234…"
+              value={form.exchangeValue}
+              onChange={handleNumberOnly("exchangeValue")}
+            />
+          </div>
+        </div>
+        {form.exchangePartId && (
+          <p className="rfp-note">Selected part: {form.exchangePartId}</p>
+        )}
+      
+      </div>
+  <button className="main-btn" style={{ background: "#02AF4F", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600, marginTop: "30px" }} onClick={() => alert("Request submitted. The part is listed and the documentation is uploaded on the blockchain")}>Validate</button>
+
+    </div>
               <div className="preview-box">
                 {imagePreview ? (
                   <img src={imagePreview} alt="Preview" className="image-preview" />
