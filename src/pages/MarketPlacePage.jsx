@@ -67,7 +67,7 @@ useEffect(() => {
       {/* HERO */}
       <section className="hero-market" style={{ backgroundImage: `url(${heroMarket})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="hero-overlay">
-        <h1>{mode === 'seller' ? "Manage your counteroffers received" : "Explore the marketplace and find the right part"}</h1>
+        <h1>{mode === 'seller' ? "Manage your counteroffers received" : "Make a new deals, track your deliveries, grow your business"}</h1>
         </div>
         <div className="search-bar-wrapper">
           <form className="search-box" onSubmit={handleSearch}>

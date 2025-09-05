@@ -129,7 +129,7 @@ const [searchTerm, setSearchTerm] = useState("");
             </div>
             <div className="dashboard-card"
             style={{ cursor: "pointer" }}
-             onClick={() => navigate('/market', { state: { mode: 'buyer' } })}>
+             onClick={() => navigate('/market', { state: { mode: 'buyer', buyerView: 'part' } })}>
               {/* Example KPI Stat */}
               <div className="label-home">New offers from your suppliers</div>
               <div className="stat-value-home">15</div>

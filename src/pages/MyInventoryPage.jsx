@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import { FiBox, FiDollarSign, FiGlobe, FiTool, FiUploadCloud } from 'react-icons/fi';
 import heroMarket from '../assets/figures/Marketplace.jpg';
+import WorldMap from '../components/WorldMap';
 const inventory = [
   {
     name: "ATR landing gear",
@@ -93,7 +94,7 @@ const MyInventory = () => {
             <div className="inventory-title-section">Filters &amp; categories</div>
             <div className="inventory-filters-row">
               <button className="inventory-filter-btn"><FiBox style={{marginRight:6}} /> Categories</button>
-              <button className="inventory-filter-btn"><FiDollarSign style={{marginRight:6}} /> Charges</button>
+              <button className="inventory-filter-btn"><FiDollarSign style={{marginRight:6}} /> Price</button>
               <button className="inventory-filter-btn"><FiGlobe style={{marginRight:6}} /> Countries</button>
               <button className="inventory-filter-btn"><FiTool style={{marginRight:6}} /> Condition</button>
             </div>
@@ -115,7 +116,19 @@ const MyInventory = () => {
             </div>
 
             <div className="inventory-title-section" style={{marginTop:38}}>Key insights on my inventory</div>
-            {/* Add key insights widget or summary here if needed */}
+            <div className="stats-overview">
+           
+            <div className="inventory-stats">
+              <div className='inventory-stats-button'>3000 <br/> Parts in total worldwide</div>
+              <div className='inventory-stats-button'>+1,345<br /><span>New Parts YTD</span></div>
+              <div className='inventory-stats-button'>+5.0%<br /><span>Parts market value YTD</span></div>
+              <div className='inventory-stats-button'>150 hrs<br /><span>Avg. flight hours</span></div>
+              <div className='inventory-stats-button'>+50<br /><span>Avg. # checks</span></div>
+
+              
+            </div>
+            <WorldMap />
+          </div>
           </div>
           
           {/* RIGHT */}
@@ -126,7 +139,7 @@ const MyInventory = () => {
                 <div className="inventory-card" key={idx}>
                   <div className="inventory-card-main">
                     <div className="inventory-card-title">
-                      Item: {item.name} | Part {item.part}
+                     <strong>Item:</strong>  {item.name} | Part {item.part}
                     </div>
                     <div className="inventory-card-details">
                       <span>Quantity: {item.quantity}</span>

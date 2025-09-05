@@ -30,7 +30,7 @@ const buyerBids = [
   {
     id: "bid-1",
     itemId: 1,
-    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    title: "ATR Main Landing Gear | Part D23189000-22",
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
@@ -46,7 +46,7 @@ const buyerBids = [
   {
     id: "bid-4",
     itemId: 1,
-    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    title: "ATR Main Landing Gear | Part D23189000-22",
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
@@ -62,7 +62,7 @@ const buyerBids = [
   {
     id: "bid-2",
     itemId: 1,
-    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    title: "ATR Main Landing Gear | Part D23189000-22",
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
@@ -78,7 +78,7 @@ const buyerBids = [
   {
     id: "bid-3",
     itemId: 1,
-    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    title: "ATR Main Landing Gear | Part D23189000-22",
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
@@ -94,7 +94,7 @@ const buyerBids = [
     {
     id: "bid-5",
     itemId: 1,
-    title: "item: ATR Main Landing Gear | Part D23189000-22",
+    title: "ATR Main Landing Gear | Part D23189000-22",
     seller: "Lion technical services",
     rating: 4.5,
     reviews: 97,
@@ -133,7 +133,7 @@ const items = [
 const sellerItems = [
     {
       id: 'D2189000-22',
-      title: 'item: ATR landing gear | Part D2189000-22',
+      title: 'ATR landing gear | Part D2189000-22',
       bidder: 'Bidder: Lion technical services',
       reviews: 97,
       quantity: 1,
@@ -145,7 +145,7 @@ const sellerItems = [
     },
     {
       id: 'C20595100',
-      title: 'item: A320 Family – Brake Assembly | Part C20595100',
+      title: 'A320 Family – Brake Assembly | Part C20595100',
       bidder: 'Bidder: Lion technical services',
       reviews: 97,
       quantity: 1,
@@ -157,7 +157,7 @@ const sellerItems = [
     },
     {
       id: 'D2189000-22-2',
-      title: 'item: ATR Main Landing Gear | Part D2189000-22',
+      title: 'ATR Main Landing Gear | Part D2189000-22',
       bidder: 'Bidder: Lion technical services',
       reviews: 97,
       quantity: 1,
@@ -172,7 +172,7 @@ const sellerItems = [
   const additionalListings = [
   {
     id: 'C20595100',
-    title: 'item: A320 Family – Brake Assembly | Part C20595100',
+    title: 'A320 Family – Brake Assembly | Part C20595100',
     bidders: 5,
     quantity: 3,
     hours: 'new',
@@ -183,7 +183,7 @@ const sellerItems = [
   },
   {
     id: 'D2189000-22-viewed',
-    title: 'item: ATR Main Landing Gear | Part D2189000-22',
+    title: 'ATR Main Landing Gear | Part D2189000-22',
     bidders: 0,
     quantity: 1,
     hours: '1,500',
@@ -490,7 +490,7 @@ useEffect(() => {
             title={b.statusLabel}
           >
             <div>
-              <strong>{b.title}</strong><br />
+              <strong>Item: </strong>{b.title}<br />
               <small>
                 Seller: {b.seller} {renderStars(b.rating)} ({b.reviews} reviews)<br />
                 Quantity: {b.quantity} – Flight hours: {b.hours} – Location: {b.location}
@@ -585,7 +585,7 @@ useEffect(() => {
     {sellerItems.map(item => (
       <div key={item.id} className="listing seller-listing">
         <div>
-          <strong>{item.title}</strong><br />
+          <strong>Item: </strong>{item.title}<br />
           <small>
             {item.bidder} ★★★★★ ({item.reviews} reviews)<br />
             Quantity: {item.quantity} – Flight hours: {item.hours} – Condition: {item.condition} – Location: {item.location}
@@ -615,7 +615,7 @@ useEffect(() => {
     {additionalListings.map(item => (
       <div key={item.id} className="listing seller-listing">
         <div>
-          <strong>{item.title}</strong><br />
+          <strong>Item: </strong> {item.title}<br />
           <small>
             {item.bidders ? `${item.bidders} bidders` : "0 bidders"}<br />
             Quantity: {item.quantity} – Flight hours: {item.hours} – Condition: {item.condition} – Location: {item.location}

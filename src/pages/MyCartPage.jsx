@@ -4,7 +4,9 @@ import Footer from '../components/Footer';
 import '../airzon.css';
 import WorldMap from '../components/WorldMap';
 import heroMarket from '../assets/figures/Marketplace.jpg';
+import lebourget from '../assets/figures/lebourget.jpeg'
 
+import { useNavigate } from "react-router-dom";
 // React Icons
 import { FaStar, FaStarHalfAlt, FaRegStar, FaSearch, FaFilter, FaTags, FaFlag, FaDollarSign, FaTools } from 'react-icons/fa';
 
@@ -20,7 +22,7 @@ const filterIcons = [
 const MyCartPage = () => {
   const [activeTab, setActiveTab] = useState('parts');
   const [searchTerm, setSearchTerm] = useState("");
-
+const navigate = useNavigate();
   function handleDummySearch(e) {
     e.preventDefault();
     // Dummy: do nothing or console.log('search');
@@ -136,7 +138,7 @@ const MyCartPage = () => {
             <div className="mycart-parts-list">
               {/* Example Part Card */}
               <div className="mycart-part-card">
-                <div className="mycart-part-title">Item: ATR landing gear | Part D23189000-22</div>
+                <div className="mycart-part-title"><strong>Item:</strong> ATR landing gear | Part D23189000-22</div>
                 <div className="mycart-part-details">
                   <span>Seller: Lion technical services</span>
                   <span>{renderStars(4.5)}</span>
@@ -146,7 +148,7 @@ const MyCartPage = () => {
                 </div>
                 <div className="mycart-part-action-row">
                   <div className="mycart-part-price">USD 150,000</div>
-                  <button className="mycart-buy-btn">Buy</button>
+                  <button className="mycart-buy-btn" onClick={() => navigate(`/market/item/1`)}>Buy</button>
                 </div>
               </div>
             </div>
@@ -155,7 +157,7 @@ const MyCartPage = () => {
             <div className="mycart-events-list">
               <div className="mycart-event-card">
                 <img
-                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+                  src={lebourget}
                   alt="Event"
                   className="mycart-event-img"
                 />
@@ -168,7 +170,7 @@ const MyCartPage = () => {
                   <div className="mycart-event-desc">
                     Conference on the key development in the aircraft spare parts markets hosted by leading MRO.
                   </div>
-                  <button className="mycart-join-btn">Join</button>
+                  <button className="mycart-join-btn" onClick={() => navigate(`/join-event/le-bourget`)}>Join</button>
                 </div>
               </div>
             </div>

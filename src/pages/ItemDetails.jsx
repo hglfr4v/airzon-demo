@@ -109,6 +109,22 @@ const handleDownloadDocumentation = () => {
     })
     .catch(() => alert('Failed to download documentation.'));
 };
+
+const handleDownloadInvoice = () => {
+  fetch(documentationPDF)
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', '20250818_Hinweise.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    })
+    .catch(() => alert('Failed to download documentation.'));
+};
+
   // Utility
   if (!item) return <div className="not-found">Item not found.</div>;
 
@@ -501,7 +517,7 @@ const handleDownloadDocumentation = () => {
         onChange={e => setIban(e.target.value)}
         style={{
           width: "100%", marginBottom: 14, fontSize: 16,
-          border: "1.5px solid #003366", borderRadius: 12, padding: "14px 18px", background: '#fff'
+          border: "1.5px solid #003366", borderRadius: 12, padding: "14px 18px", background: '#fff', color:"#003366"
         }}
       />
       <input
@@ -511,7 +527,7 @@ const handleDownloadDocumentation = () => {
         onChange={e => setBic(e.target.value)}
         style={{
           width: "100%", marginBottom: 14, fontSize: 16,
-          border: "1.5px solid #003366", borderRadius: 12, padding: "14px 18px", background: '#fff'
+          border: "1.5px solid #003366", borderRadius: 12, padding: "14px 18px", background: '#fff', color: "#003366"
         }}
       />
       <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 10, fontSize: 15, color: "#003366" }}>
@@ -543,7 +559,7 @@ const handleDownloadDocumentation = () => {
         <div style={{ width: "100%", maxWidth: 420, margin: "0 auto", fontSize: 15 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
             <div style={{ color: "green"}}>Item purchased</div>
-            <div style={{ color: "green"}}>Item shipped</div>
+            <div style={{ color: "grey"}}>Item shipped</div>
             <div style={{ color: "grey" }}>Dispatch center</div>
             <div style={{ color: "grey" }}>Item received</div>
           </div>
@@ -555,7 +571,7 @@ const handleDownloadDocumentation = () => {
               position: "absolute", left: 0, top: -7, width: 16, height: 16, background: "#32ad49", borderRadius: "50%", border: "2px solid #fff"
             }} />
             <div style={{
-              position: "absolute", left: "33%", top: -7, width: 16, height: 16, background: "#32ad49", borderRadius: "50%", border: "2px solid #fff"
+              position: "absolute", left: "33%", top: -7, width: 16, height: 16, background: "#aaa", borderRadius: "50%", border: "2px solid #fff"
             }} />
             <div style={{
               position: "absolute", left: "66%", top: -7, width: 16, height: 16, background: "#aaa", borderRadius: "50%", border: "2px solid #fff"
@@ -567,7 +583,7 @@ const handleDownloadDocumentation = () => {
         </div>
       </div>
       <button className="main-btn" style={{ background: "#203050", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600, marginBottom: 12 }}>Track my order</button>
-      <button className="main-btn" style={{ background: "#8db2f7", color: "#204574", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }}>Download invoice</button>
+      <button className="main-btn" style={{ background: "#8db2f7", color: "#204574", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600 }} onClick={handleDownloadInvoice}>Download invoice</button>
     </div>
   );
 

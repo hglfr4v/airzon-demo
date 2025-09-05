@@ -509,23 +509,23 @@ width: 100%;
 
 
 .hero-overlay {
-  background: rgba(255, 255, 255, 0.25);
+/* background: rgba(255, 255, 255, 0.25); */
   padding: 0px 32px;
   border-radius: 24px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  /*  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15); */
   margin-left: 3vw;
   text-align: left;
 }
 
 .hero-overlay-inventory {
-  background: rgba(255, 255, 255, 0.25);
+  /* background: rgba(255, 255, 255, 0.25); */
   padding: 0px 32px;
   border-radius: 24px;
   max-width: 530px;
   width: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+/*  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15); */
   margin-left: 3vw;
   text-align: left;
 
@@ -2209,7 +2209,7 @@ color: white;
 .filter-btn {
   background: #5C8EDC;    /* Pale blue for soft buttons */
   color: white;
-  border: 2px solid #4682e9;
+
   border-radius: 14px;
   font-size: 1.14rem;
   font-weight: 700;
@@ -2224,8 +2224,8 @@ color: white;
 }
 .filter-btn:focus,
 .filter-btn:hover {
-  background: #e4edfc;    /* Slightly deeper on hover */
-  color: #003366;
+  background: #245cc5;    /* Slightly deeper on hover */
+  color: #e4edfc;
 }
 
 .upload-card-content {
@@ -3200,9 +3200,9 @@ border: 2px;
 
 .mycart-filter-btn.blue:hover,
 .mycart-filter-btn.blue:focus {
-  background: #5C8EDC;
+  background: #245cc5;
   color: white;
-    box-shadow: 0 6px 12px rgba(30,50,120,0.09);
+  
 }
 .mycart-filter-btn.grey {
   background: #e9eef6;
@@ -3307,7 +3307,7 @@ border: 2px;
 }
 .mycart-part-title {
   font-size: 1.15rem;
-  font-weight: 700;
+
   margin-bottom: 10px;
   color: #2c3150;
 }
@@ -3420,6 +3420,33 @@ border: 2px;
   padding-top: 52px ;
   width: 100%;
 }
+.inventory-stats{
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+
+}
+
+.inventory-stats-button{
+    min-width: 19%;
+
+  background: #4682e9;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(34, 51, 84, 0.07), 0 0.5px 1.5px rgba(0,0,0,0.07);
+  font-size: 1rem;
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.22s cubic-bezier(.4,1.6,.7,.7);
+  border: 1.5px solid #e3eaf3;
+  margin-bottom: 5px;
+  cursor: default;
+}
 
 .hero-overlay-inventory h1{
   font-size: 40px;
@@ -3435,12 +3462,12 @@ padding-bottom: 30px;
 }
 
 .hero-overlay-inventory {
-  background: rgba(255, 255, 255, 0.25);
+/* background: rgba(255, 255, 255, 0.25); */
   padding: 0px 32px;
   border-radius: 24px;
   max-width: 440px;
   width: 100%;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  /*  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15); */
   margin-left: 3vw;
   text-align: left;
 
@@ -3473,7 +3500,7 @@ padding-bottom: 30px;
 .inventory-filter-btn {
   background: #5C8EDC;
   color: white;
-  border: 2px solid #5C8EDC;
+
   font-size: 1rem;
   padding: 14px 20px;
   border-radius: 12px;
@@ -3483,8 +3510,8 @@ padding-bottom: 30px;
   transition: background 0.17s;
 }
 .inventory-filter-btn:hover {
-  background: #F9F9F9;
-  color: #5C8EDC;
+  background: #245cc5;
+  color: #f9f9f9;
 }
 
 .inventory-upload-row {
@@ -3506,11 +3533,11 @@ padding-bottom: 30px;
   color: white;
 }
 .inventory-upload-btn.yellow {
-  background: #ffe488;
+  background: #ffd500;
   color: white;
 }
 .inventory-upload-btn.yellow:hover {
-  background: #ffdc56;
+  background: #ffe488;
 }
 .inventory-upload-btn.dark {
   background: #131d32;
@@ -3555,7 +3582,7 @@ padding-bottom: 30px;
 }
 .inventory-card-title {
   font-size: 1.15rem;
-  font-weight: 700;
+
   margin-bottom: 10px;
   color: #2c3150;
 }
