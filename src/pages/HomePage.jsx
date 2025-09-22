@@ -112,7 +112,7 @@ const [searchTerm, setSearchTerm] = useState("");
       {/* DASHBOARD */}
       <section className="dashboard">
         <div className="welcome">
-          <h2>Welcome back <span className="highlight">Martin !</span></h2>
+          <h2>Welcome back <span className="highlight">Sanjeev!</span></h2>
           <p>Let’s see what happened in the market since your last connection</p>
         </div>
 

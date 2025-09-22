@@ -198,7 +198,7 @@ React.useEffect(() => {
         <div className="actions">
           <button className="doc-btn">Download documentation</button>
           <button className="modify-btn">Modify</button>
-          <button className="best-btn">Best sales</button>
+          <button className="best-btn">Boost sales</button>
         </div>
       </aside>
 </section>

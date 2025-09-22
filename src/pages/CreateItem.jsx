@@ -365,46 +365,7 @@ const [showBanner, setShowBanner] = useState(false);
         </div>
       </div>
 
-      <div className="rfp-exchange">
-        <h4>Include a part exchange (optional)</h4>
-        <div className="rfp-row">
-          <div className="rfp-col">
-            <button
-              type="button"
-              className="rfp-upload-btn"
-              onClick={() => setForm((f) => ({ ...f, exchangePartId: "INV-1234" }))}
-              title="Select from your inventory"
-            >
-              Select part from your inventory
-            </button>
-          </div>
-          <div className="rfp-col">
-            <Label>Currency</Label>
-            <select
-              className="rfp-input"
-              value={form.exchangeCurrency}
-              onChange={handleChange("exchangeCurrency")}
-            >
-              <option>USD</option>
-              <option>EUR</option>
-              <option>GBP</option>
-            </select>
-          </div>
-          <div className="rfp-col">
-            <Label>Value exchange</Label>
-            <input
-              className="rfp-input"
-              placeholder="1234…"
-              value={form.exchangeValue}
-              onChange={handleNumberOnly("exchangeValue")}
-            />
-          </div>
-        </div>
-        {form.exchangePartId && (
-          <p className="rfp-note">Selected part: {form.exchangePartId}</p>
-        )}
       
-      </div>
   <button className="main-btn" style={{ background: "#02AF4F", color: "#fff", width: "100%", border: "none", borderRadius: 8, padding: "12px 0", fontWeight: 600, marginTop: "30px" }} onClick={() => alert("Request submitted. The part is listed and the documentation is uploaded on the blockchain")}>Validate</button>
 
     </div>
